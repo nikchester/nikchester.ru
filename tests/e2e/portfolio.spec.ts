@@ -4,7 +4,6 @@ const publicLinks = [
   'https://t.me/nikchester',
   'https://github.com/nikchester',
   'https://www.linkedin.com/in/nikita-chaturov-8625a5281/',
-  'https://kwork.ru/user/nikchester',
   'https://www.fiverr.com/s/DmQQ6gA',
   'https://unsplash.com/@nikchester',
   'https://www.youtube.com/@Chesterf1eld',
@@ -57,11 +56,20 @@ test('has required public links and CV downloads', async ({ page }) => {
   await expect(page.locator('a[href="/assets/cv/nikita-chaturov-cv.en.pdf"]')).toBeVisible();
   await expect(page.locator('a[href="/assets/cv/nikita-chaturov-cv.ru.pdf"]')).toBeVisible();
   await expect(page.locator('a[href^="mailto:nikchester01@gmail.com"]')).toBeVisible();
-  await expect(page.locator('#freelance a[href="https://kwork.ru/user/nikchester"]')).toBeVisible();
   await expect(page.locator('#freelance a[href="https://www.fiverr.com/s/DmQQ6gA"]')).toBeVisible();
+  await expect(page.locator('a[href="https://kwork.ru/user/nikchester"]')).toHaveCount(0);
   await expect(page.locator('#freelance a[href="https://t.me/nikchester"]')).toBeVisible();
   await expect(page.locator('a[href="/en/cases/web-cluster/"]')).toBeVisible();
   await expect(page.locator('a[href="/en/cases/bot-protection/"]')).toBeVisible();
+});
+
+test('shows Kwork instead of Fiverr in Russian', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'RU' }).click();
+
+  await expect(page.locator('#freelance a[href="https://kwork.ru/user/nikchester"]')).toBeVisible();
+  await expect(page.locator('#contact a[href="https://kwork.ru/user/nikchester"]')).toBeVisible();
+  await expect(page.locator('a[href="https://www.fiverr.com/s/DmQQ6gA"]')).toHaveCount(0);
 });
 
 test('does not render duplicated repo field or contact prompt badge', async ({ page }) => {
