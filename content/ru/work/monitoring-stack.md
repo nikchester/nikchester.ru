@@ -1,7 +1,7 @@
 ---
 title: Monitoring Stack as Code
 priority: primary
-url: https://github.com/Chest3rf1eld/grafana-prometheus-loki-ansible
+url: https://github.com/nikchester/grafana-prometheus-loki-ansible
 stack: Ansible, Prometheus, Grafana, Loki, Promtail, blackbox_exporter, nginx, nftables
 ---
 

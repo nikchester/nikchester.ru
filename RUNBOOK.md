@@ -105,7 +105,7 @@ Pushes to `main` run CI and deploy to GitHub Pages.
 Production repository:
 
 ```text
-https://github.com/Chest3rf1eld/Chest3rf1eld.github.io
+https://github.com/nikchester/nikchester.ru
 ```
 
 Production domain:
@@ -131,14 +131,14 @@ VITE_GA_MEASUREMENT_ID
 Check Pages state:
 
 ```bash
-gh api repos/Chest3rf1eld/Chest3rf1eld.github.io/pages
-gh api repos/Chest3rf1eld/Chest3rf1eld.github.io/pages/health
+gh api repos/nikchester/nikchester.ru/pages
+gh api repos/nikchester/nikchester.ru/pages/health
 ```
 
 When GitHub Pages certificate exists, enforce HTTPS:
 
 ```bash
-gh api --method PUT repos/Chest3rf1eld/Chest3rf1eld.github.io/pages -f build_type=workflow -f cname=nikchester.ru -F https_enforced=true
+gh api --method PUT repos/nikchester/nikchester.ru/pages -f build_type=workflow -f cname=nikchester.ru -F https_enforced=true
 ```
 
 ## Sensitive Files

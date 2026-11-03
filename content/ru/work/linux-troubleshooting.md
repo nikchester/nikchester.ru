@@ -1,7 +1,7 @@
 ---
 title: Linux Troubleshooting Runbook
 priority: supporting
-url: https://github.com/Chest3rf1eld/pi-linux-troubleshooting
+url: https://github.com/nikchester/pi-linux-troubleshooting
 stack: Linux, incident response, systemd, networking, DNS, storage, SRE references
 ---
 

@@ -1,7 +1,7 @@
 ---
 eyebrow: ''
 name: Никита Чатуров
-role: Infrastructure Engineer
+role: DevOps-инженер
 ctaLabel: Написать в Telegram
 secondaryLabel: Открыть GitHub
 ---

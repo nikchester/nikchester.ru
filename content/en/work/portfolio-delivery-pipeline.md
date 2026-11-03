@@ -1,7 +1,7 @@
 ---
 title: Portfolio Delivery Pipeline
 priority: supporting
-url: https://github.com/Chest3rf1eld/Chest3rf1eld.github.io
+url: https://github.com/nikchester/nikchester.ru
 stack: Vite, React, TypeScript, Markdown, GitHub Actions, GitHub Pages, Playwright, Lighthouse
 ---
 
