@@ -20,8 +20,10 @@ const labels = {
     github: 'GitHub',
     linkedin: 'LinkedIn',
     kwork: 'Kwork',
+    fiverr: 'Fiverr',
     freelance: 'Freelance',
     contactViaKwork: 'Contact via Kwork',
+    contactViaFiverr: 'Contact via Fiverr',
     contactViaTelegram: 'Contact via Telegram',
     caseDetails: 'Case details',
     personal: 'Personal',
@@ -30,7 +32,7 @@ const labels = {
     openProject: 'Open project',
     openRedditPost: 'Reddit post',
     photoTitle: 'photo.jpg',
-    photoAlt: 'Nikita Chaturov, Infrastructure Engineer',
+    photoAlt: 'Nikita Chaturov, DevOps Engineer',
     terminalReady: 'diagnostics complete / ready for contact',
     contactStatus: 'Primary channel: Telegram',
     commandProfile: './whoami',
@@ -61,8 +63,10 @@ const labels = {
     github: 'GitHub',
     linkedin: 'LinkedIn',
     kwork: 'Kwork',
+    fiverr: 'Fiverr',
     freelance: 'Фриланс',
     contactViaKwork: 'Написать через Kwork',
+    contactViaFiverr: 'Написать через Fiverr',
     contactViaTelegram: 'Написать в Telegram',
     caseDetails: 'Подробнее',
     personal: 'Личное',
@@ -71,7 +75,7 @@ const labels = {
     openProject: 'Открыть проект',
     openRedditPost: 'Пост на Reddit',
     photoTitle: 'photo.jpg',
-    photoAlt: 'Никита Чатуров, Infrastructure Engineer',
+    photoAlt: 'Никита Чатуров, DevOps-инженер',
     terminalReady: 'diagnostics complete / готов к контакту',
     contactStatus: 'Основной канал: Telegram',
     commandProfile: './whoami',
@@ -274,6 +278,7 @@ function FreelancePanel({ content, lang }: { content: PageContent; lang: Languag
       <HtmlBlock html={content.freelance.html} />
       <div className="actions compact equal-actions">
         <a className="button" href={siteConfig.kworkUrl}>{text.contactViaKwork}</a>
+        <a className="button" href={siteConfig.fiverrUrl}>{text.contactViaFiverr}</a>
         <a className="button" href={siteConfig.telegramUrl}>{text.contactViaTelegram}</a>
       </div>
     </Window>
@@ -306,6 +311,7 @@ function ContactPanel({ content, lang }: { content: PageContent; lang: Language 
         <a className="button" href={siteConfig.githubUrl}>{text.github}</a>
         <a className="button" href={siteConfig.linkedinUrl}>{text.linkedin}</a>
         <a className="button" href={siteConfig.kworkUrl}>{text.kwork}</a>
+        <a className="button" href={siteConfig.fiverrUrl}>{text.fiverr}</a>
       </div>
     </>
   );
@@ -418,8 +424,8 @@ function MobileNav({ lang }: { lang: Language }) {
 }
 
 function updateHead(lang: Language) {
-  const title = lang === 'en' ? 'Nikita Chaturov - Infrastructure Engineer' : 'Никита Чатуров - Infrastructure Engineer';
-  const description = lang === 'en' ? siteConfig.description : 'Infrastructure Engineer: Linux production-инфраструктура, автоматизация, мониторинг, бэкапы, сети и разбор инцидентов.';
+  const title = lang === 'en' ? 'Nikita Chaturov - DevOps Engineer' : 'Никита Чатуров - DevOps-инженер';
+  const description = lang === 'en' ? siteConfig.description : 'DevOps-инженер: Linux production-инфраструктура, автоматизация, мониторинг, бэкапы, сети и разбор инцидентов.';
 
   document.documentElement.lang = lang;
   document.title = title;

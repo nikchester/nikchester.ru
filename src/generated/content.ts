@@ -5,7 +5,7 @@ export const siteContent = {
     "hero": {
       "eyebrow": "",
       "name": "Nikita Chaturov",
-      "role": "Infrastructure Engineer",
+      "role": "DevOps Engineer",
       "ctaLabel": "Write in Telegram",
       "secondaryLabel": "View GitHub",
       "html": "<p>I keep infrastructure understandable: servers, automation, monitoring, backups, networking, and incident troubleshooting.</p>\n<p>I like systems that are reproducible, observable, and documented - playbooks instead of manual steps, alerts instead of guessing, runbooks instead of tribal knowledge.</p>"
@@ -24,7 +24,7 @@ export const siteContent = {
     },
     "contact": {
       "title": "Contact",
-      "html": "<p>Best way to reach me: Telegram.</p>\n<p>For hiring context, use LinkedIn, GitHub, Kwork, or email.</p>"
+      "html": "<p>Best way to reach me: Telegram.</p>\n<p>For hiring context, use LinkedIn, GitHub, Kwork, Fiverr, or email.</p>"
     },
     "work": [
       {
@@ -43,7 +43,7 @@ export const siteContent = {
         "title": "Bulk Web Infrastructure Automation",
         "priority": "primary",
         "order": 2,
-        "url": "https://github.com/Chest3rf1eld/HestiaCP_scripts",
+        "url": "https://github.com/nikchester/HestiaCP_scripts",
         "caseUrl": "/en/cases/web-cluster/",
         "redditUrl": "",
         "stack": "Bash, HestiaCP, WordPress, WP-CLI, SSL, DNS, Yandex Object Storage",
@@ -54,7 +54,7 @@ export const siteContent = {
         "title": "Minecraft Server Infrastructure",
         "priority": "primary",
         "order": 50,
-        "url": "https://github.com/Chest3rf1eld/minecraft-server",
+        "url": "https://github.com/nikchester/minecraft-server",
         "caseUrl": "/en/cases/minecraft-server/",
         "redditUrl": "",
         "stack": "Debian, Paper, Ansible, GitHub Actions, restic, rclone, Yandex Disk, Telegram, Healthchecks.io",
@@ -65,7 +65,7 @@ export const siteContent = {
         "title": "Monitoring Stack as Code",
         "priority": "primary",
         "order": 50,
-        "url": "https://github.com/Chest3rf1eld/grafana-prometheus-loki-ansible",
+        "url": "https://github.com/nikchester/grafana-prometheus-loki-ansible",
         "caseUrl": "",
         "redditUrl": "",
         "stack": "Ansible, Prometheus, Grafana, Loki, Promtail, blackbox_exporter, nginx, nftables",
@@ -76,7 +76,7 @@ export const siteContent = {
         "title": "Freelance Email-to-Telegram Monitor",
         "priority": "supporting",
         "order": 50,
-        "url": "https://github.com/Chest3rf1eld/kwork-jobs-parser",
+        "url": "https://github.com/nikchester/kwork-jobs-parser",
         "caseUrl": "",
         "redditUrl": "https://www.reddit.com/r/RuProgrammers/s/O6DUeSJ1W3",
         "stack": "Google Apps Script, JavaScript, Gmail API, Telegram Bot API, clasp, parsing, workflow automation",
@@ -87,7 +87,7 @@ export const siteContent = {
         "title": "Linux Desktop / Dotfiles",
         "priority": "supporting",
         "order": 50,
-        "url": "https://github.com/Chest3rf1eld/my-i3-dotfiles",
+        "url": "https://github.com/nikchester/my-i3-dotfiles",
         "caseUrl": "",
         "redditUrl": "",
         "stack": "i3, X11, GNU Stow, Shell, tmux, rofi, polybar, systemd user services",
@@ -98,7 +98,7 @@ export const siteContent = {
         "title": "Linux Troubleshooting Runbook",
         "priority": "supporting",
         "order": 50,
-        "url": "https://github.com/Chest3rf1eld/pi-linux-troubleshooting",
+        "url": "https://github.com/nikchester/pi-linux-troubleshooting",
         "caseUrl": "",
         "redditUrl": "",
         "stack": "Linux, incident response, systemd, networking, DNS, storage, SRE references",
@@ -109,7 +109,7 @@ export const siteContent = {
         "title": "Portfolio Delivery Pipeline",
         "priority": "supporting",
         "order": 50,
-        "url": "https://github.com/Chest3rf1eld/Chest3rf1eld.github.io",
+        "url": "https://github.com/nikchester/nikchester.ru",
         "caseUrl": "",
         "redditUrl": "",
         "stack": "Vite, React, TypeScript, Markdown, GitHub Actions, GitHub Pages, Playwright, Lighthouse",
@@ -147,7 +147,7 @@ export const siteContent = {
     "hero": {
       "eyebrow": "",
       "name": "Никита Чатуров",
-      "role": "Infrastructure Engineer",
+      "role": "DevOps-инженер",
       "ctaLabel": "Написать в Telegram",
       "secondaryLabel": "Открыть GitHub",
       "html": "<p>Держу инфраструктуру понятной: серверы, автоматизацию, мониторинг, бэкапы, сети и разбор инцидентов.</p>\n<p>Люблю системы, которые можно повторить, наблюдать и передать другому человеку: плейбуки вместо ручных шагов, алерты вместо догадок, runbook вместо знаний в голове.</p>"
@@ -158,7 +158,7 @@ export const siteContent = {
     },
     "freelance": {
       "title": "Фриланс-задачи по инфраструктуре",
-      "html": "<p>Беру ограниченные фриланс-задачи по обслуживанию, администрированию и проектированию инфраструктуры: Linux troubleshooting, мониторинг, скрипты автоматизации и web-операции.</p>"
+      "html": "<p>Беру фриланс-задачи с понятным объёмом работ по обслуживанию, администрированию и проектированию инфраструктуры: Linux troubleshooting, мониторинг, скрипты автоматизации и web-операции.</p>"
     },
     "stack": {
       "title": "Стек",
@@ -166,7 +166,7 @@ export const siteContent = {
     },
     "contact": {
       "title": "Контакты",
-      "html": "<p>Самый быстрый способ связи - Telegram.</p>\n<p>Для найма и технического контекста есть LinkedIn, GitHub, Kwork и email.</p>"
+      "html": "<p>Самый быстрый способ связи - Telegram.</p>\n<p>Для найма и технического контекста есть LinkedIn, GitHub, Kwork, Fiverr и email.</p>"
     },
     "work": [
       {
@@ -185,7 +185,7 @@ export const siteContent = {
         "title": "Bulk Web Infrastructure Automation",
         "priority": "primary",
         "order": 2,
-        "url": "https://github.com/Chest3rf1eld/HestiaCP_scripts",
+        "url": "https://github.com/nikchester/HestiaCP_scripts",
         "caseUrl": "/ru/cases/web-cluster/",
         "redditUrl": "",
         "stack": "Bash, HestiaCP, WordPress, WP-CLI, SSL, DNS, Yandex Object Storage",
@@ -196,7 +196,7 @@ export const siteContent = {
         "title": "Minecraft Server Infrastructure",
         "priority": "primary",
         "order": 50,
-        "url": "https://github.com/Chest3rf1eld/minecraft-server",
+        "url": "https://github.com/nikchester/minecraft-server",
         "caseUrl": "/ru/cases/minecraft-server/",
         "redditUrl": "",
         "stack": "Debian, Paper, Ansible, GitHub Actions, restic, rclone, Yandex Disk, Telegram, Healthchecks.io",
@@ -207,7 +207,7 @@ export const siteContent = {
         "title": "Monitoring Stack as Code",
         "priority": "primary",
         "order": 50,
-        "url": "https://github.com/Chest3rf1eld/grafana-prometheus-loki-ansible",
+        "url": "https://github.com/nikchester/grafana-prometheus-loki-ansible",
         "caseUrl": "",
         "redditUrl": "",
         "stack": "Ansible, Prometheus, Grafana, Loki, Promtail, blackbox_exporter, nginx, nftables",
@@ -218,7 +218,7 @@ export const siteContent = {
         "title": "Freelance Email-to-Telegram Monitor",
         "priority": "supporting",
         "order": 50,
-        "url": "https://github.com/Chest3rf1eld/kwork-jobs-parser",
+        "url": "https://github.com/nikchester/kwork-jobs-parser",
         "caseUrl": "",
         "redditUrl": "https://www.reddit.com/r/RuProgrammers/s/O6DUeSJ1W3",
         "stack": "Google Apps Script, JavaScript, Gmail API, Telegram Bot API, clasp, parsing, workflow automation",
@@ -229,7 +229,7 @@ export const siteContent = {
         "title": "Linux Desktop / Dotfiles",
         "priority": "supporting",
         "order": 50,
-        "url": "https://github.com/Chest3rf1eld/my-i3-dotfiles",
+        "url": "https://github.com/nikchester/my-i3-dotfiles",
         "caseUrl": "",
         "redditUrl": "",
         "stack": "i3, X11, GNU Stow, Shell, tmux, rofi, polybar, systemd user services",
@@ -240,7 +240,7 @@ export const siteContent = {
         "title": "Linux Troubleshooting Runbook",
         "priority": "supporting",
         "order": 50,
-        "url": "https://github.com/Chest3rf1eld/pi-linux-troubleshooting",
+        "url": "https://github.com/nikchester/pi-linux-troubleshooting",
         "caseUrl": "",
         "redditUrl": "",
         "stack": "Linux, incident response, systemd, networking, DNS, storage, SRE references",
@@ -251,7 +251,7 @@ export const siteContent = {
         "title": "Portfolio Delivery Pipeline",
         "priority": "supporting",
         "order": 50,
-        "url": "https://github.com/Chest3rf1eld/Chest3rf1eld.github.io",
+        "url": "https://github.com/nikchester/nikchester.ru",
         "caseUrl": "",
         "redditUrl": "",
         "stack": "Vite, React, TypeScript, Markdown, GitHub Actions, GitHub Pages, Playwright, Lighthouse",

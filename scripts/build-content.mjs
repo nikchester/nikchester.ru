@@ -31,7 +31,7 @@ const safetyForbiddenTerms = [
   'token=',
 ];
 const allowedCaseUrls = new Set([
-  'https://github.com/Chest3rf1eld/HestiaCP_scripts',
+  'https://github.com/nikchester/HestiaCP_scripts',
   'https://nikchester.ru',
 ]);
 

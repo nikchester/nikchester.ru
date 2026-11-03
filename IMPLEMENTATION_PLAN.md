@@ -45,7 +45,7 @@ Verify whether `Chest3rf1eld.github.io` already exists.
 Target command:
 
 ```powershell
-gh repo view Chest3rf1eld/Chest3rf1eld.github.io
+gh repo view nikchester/nikchester.ru
 ```
 
 Decision:
@@ -315,7 +315,7 @@ GA_MEASUREMENT_ID=G-XWTKZN2DQL
 Target command:
 
 ```powershell
-gh secret set GA_MEASUREMENT_ID --repo Chest3rf1eld/Chest3rf1eld.github.io
+gh secret set GA_MEASUREMENT_ID --repo nikchester/nikchester.ru
 ```
 
 ### 9.3 GitHub Actions

@@ -1,7 +1,7 @@
 ---
 eyebrow: ''
 name: Nikita Chaturov
-role: Infrastructure Engineer
+role: DevOps Engineer
 ctaLabel: Write in Telegram
 secondaryLabel: View GitHub
 ---
