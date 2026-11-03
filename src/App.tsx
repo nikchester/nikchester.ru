@@ -19,11 +19,9 @@ const labels = {
     email: 'Email',
     github: 'GitHub',
     linkedin: 'LinkedIn',
-    kwork: 'Kwork',
-    fiverr: 'Fiverr',
     freelance: 'Freelance',
-    contactViaKwork: 'Contact via Kwork',
-    contactViaFiverr: 'Contact via Fiverr',
+    marketplace: 'Fiverr',
+    contactViaMarketplace: 'Contact via Fiverr',
     contactViaTelegram: 'Contact via Telegram',
     caseDetails: 'Case details',
     personal: 'Personal',
@@ -62,11 +60,9 @@ const labels = {
     email: 'Email',
     github: 'GitHub',
     linkedin: 'LinkedIn',
-    kwork: 'Kwork',
-    fiverr: 'Fiverr',
     freelance: 'Фриланс',
-    contactViaKwork: 'Написать через Kwork',
-    contactViaFiverr: 'Написать через Fiverr',
+    marketplace: 'Kwork',
+    contactViaMarketplace: 'Написать через Kwork',
     contactViaTelegram: 'Написать в Telegram',
     caseDetails: 'Подробнее',
     personal: 'Личное',
@@ -270,6 +266,11 @@ function WorkGrid({ content, lang }: { content: PageContent; lang: Language }) {
   );
 }
 
+// EN visitors get Fiverr, RU visitors get Kwork.
+function marketplaceUrl(lang: Language) {
+  return lang === 'en' ? siteConfig.fiverrUrl : siteConfig.kworkUrl;
+}
+
 function FreelancePanel({ content, lang }: { content: PageContent; lang: Language }) {
   const text = labels[lang];
 
@@ -277,8 +278,7 @@ function FreelancePanel({ content, lang }: { content: PageContent; lang: Languag
     <Window title={content.freelance.title} id="freelance" className="freelance-window terminal-window" status="intake: scoped ops task">
       <HtmlBlock html={content.freelance.html} />
       <div className="actions compact equal-actions">
-        <a className="button" href={siteConfig.kworkUrl}>{text.contactViaKwork}</a>
-        <a className="button" href={siteConfig.fiverrUrl}>{text.contactViaFiverr}</a>
+        <a className="button" href={marketplaceUrl(lang)}>{text.contactViaMarketplace}</a>
         <a className="button" href={siteConfig.telegramUrl}>{text.contactViaTelegram}</a>
       </div>
     </Window>
@@ -310,8 +310,7 @@ function ContactPanel({ content, lang }: { content: PageContent; lang: Language 
         <a className="button" href={`mailto:${siteConfig.email}`}>{text.email}</a>
         <a className="button" href={siteConfig.githubUrl}>{text.github}</a>
         <a className="button" href={siteConfig.linkedinUrl}>{text.linkedin}</a>
-        <a className="button" href={siteConfig.kworkUrl}>{text.kwork}</a>
-        <a className="button" href={siteConfig.fiverrUrl}>{text.fiverr}</a>
+        <a className="button" href={marketplaceUrl(lang)}>{text.marketplace}</a>
       </div>
     </>
   );

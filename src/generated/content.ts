@@ -24,7 +24,7 @@ export const siteContent = {
     },
     "contact": {
       "title": "Contact",
-      "html": "<p>Best way to reach me: Telegram.</p>\n<p>For hiring context, use LinkedIn, GitHub, Kwork, Fiverr, or email.</p>"
+      "html": "<p>Best way to reach me: Telegram.</p>\n<p>For hiring context, use LinkedIn, GitHub, Fiverr, or email.</p>"
     },
     "work": [
       {
@@ -166,7 +166,7 @@ export const siteContent = {
     },
     "contact": {
       "title": "Контакты",
-      "html": "<p>Самый быстрый способ связи - Telegram.</p>\n<p>Для найма и технического контекста есть LinkedIn, GitHub, Kwork, Fiverr и email.</p>"
+      "html": "<p>Самый быстрый способ связи - Telegram.</p>\n<p>Для найма и технического контекста есть LinkedIn, GitHub, Kwork и email.</p>"
     },
     "work": [
       {
