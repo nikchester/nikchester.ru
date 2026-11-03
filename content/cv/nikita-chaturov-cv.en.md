@@ -8,7 +8,7 @@ github: https://github.com/nikchester
 linkedin: https://www.linkedin.com/in/nikita-chaturov-8625a5281/
 ---
 
-Full-time. Remote, hybrid, or on-site in Gyumri. Not open to relocation; available for occasional business travel.
+Full-time. Not open to relocation; available for occasional business travel.
 
 Citizenship: Russia. No work permit required in Armenia (EAEU).
 
@@ -31,7 +31,7 @@ Work with Ansible, Terraform, Docker, GitLab CI/CD, Prometheus, Grafana, and Lok
 
 ### Wclik, Kazan
 
-System Administrator | January 2024 - Present, remote since mid-2026
+System Administrator | January 2024 - Present
 
 Responsible for the company's entire infrastructure. I administer Proxmox VE daily. I manage around 15 servers and VMs across four providers and infrastructure for 170+ websites.
 
