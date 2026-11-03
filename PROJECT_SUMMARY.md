@@ -1,7 +1,7 @@
 # Portfolio Site Summary
 
 ## GitHub Repository
-https://github.com/Chest3rf1eld/Chest3rf1eld.github.io
+https://github.com/nikchester/nikchester.ru
 
 ## Hosting
 - GitHub Pages with custom domain `nikchester.ru`

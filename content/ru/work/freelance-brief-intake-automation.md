@@ -1,7 +1,7 @@
 ---
 title: Freelance Email-to-Telegram Monitor
 priority: supporting
-url: https://github.com/Chest3rf1eld/kwork-jobs-parser
+url: https://github.com/nikchester/kwork-jobs-parser
 redditUrl: https://www.reddit.com/r/RuProgrammers/s/O6DUeSJ1W3
 stack: Google Apps Script, JavaScript, Gmail API, Telegram Bot API, clasp, parsing, workflow automation
 ---

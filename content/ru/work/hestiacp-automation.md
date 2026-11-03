@@ -2,7 +2,7 @@
 title: Bulk Web Infrastructure Automation
 priority: primary
 order: 2
-url: https://github.com/Chest3rf1eld/HestiaCP_scripts
+url: https://github.com/nikchester/HestiaCP_scripts
 caseUrl: /ru/cases/web-cluster/
 stack: Bash, HestiaCP, WordPress, WP-CLI, SSL, DNS, Yandex Object Storage
 ---

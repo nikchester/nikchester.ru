@@ -1,7 +1,7 @@
 ---
 title: Minecraft Server Infrastructure
 priority: primary
-url: https://github.com/Chest3rf1eld/minecraft-server
+url: https://github.com/nikchester/minecraft-server
 caseUrl: /ru/cases/minecraft-server/
 stack: Debian, Paper, Ansible, GitHub Actions, restic, rclone, Yandex Disk, Telegram, Healthchecks.io
 ---

@@ -103,19 +103,19 @@ The Work section should use these public repositories as concrete proof. Keep co
 
 | Priority | Project | URL | Portfolio Role | Card Angle |
 |----------|---------|-----|----------------|------------|
-| Primary | Monitoring Stack as Code | `https://github.com/Chest3rf1eld/grafana-prometheus-loki-ansible` | Main infrastructure/SRE proof | Ansible-based distributed monitoring stack with Grafana, Prometheus, Loki, blackbox checks, TLS, and firewall rules |
-| Primary | Bulk Web Infrastructure Automation | `https://github.com/Chest3rf1eld/HestiaCP_scripts` | Main automation proof for 170+ site operations | Bash tooling for HestiaCP/WordPress operations: SSL, migrations, redirects, permissions, backups, cache/plugin maintenance |
-| Supporting | Portfolio Delivery Pipeline | `https://github.com/Chest3rf1eld/Chest3rf1eld.github.io` | Delivery/CI proof for this portfolio | Static bilingual portfolio with Markdown content, generated CV PDFs, production config validation, link checks, Playwright, Lighthouse, GitHub Actions, GitHub Pages, and custom domain deployment |
-| Supporting | Freelance Email-to-Telegram Monitor | `https://github.com/Chest3rf1eld/kwork-jobs-parser` | Lightweight automation proof | Google Apps Script workflow that parses labeled Kwork emails in Gmail, filters by budget and keywords, sends Telegram digests, marks processed messages, and handles Telegram rate-limit retries |
-| Supporting | Linux Troubleshooting Runbook | `https://github.com/Chest3rf1eld/pi-linux-troubleshooting` | Reliability/troubleshooting/process proof | Safety-first Linux incident triage workflow for load, memory, disk, network, DNS, systemd, SSH, and post-incident notes |
-| Supporting | Linux Desktop / Dotfiles | `https://github.com/Chest3rf1eld/my-i3-dotfiles` | Personal Linux/open-source signal | i3/X11 desktop environment managed with GNU Stow, shell scripts, tmux, rofi, polybar, and user systemd services |
+| Primary | Monitoring Stack as Code | `https://github.com/nikchester/grafana-prometheus-loki-ansible` | Main infrastructure/SRE proof | Ansible-based distributed monitoring stack with Grafana, Prometheus, Loki, blackbox checks, TLS, and firewall rules |
+| Primary | Bulk Web Infrastructure Automation | `https://github.com/nikchester/HestiaCP_scripts` | Main automation proof for 170+ site operations | Bash tooling for HestiaCP/WordPress operations: SSL, migrations, redirects, permissions, backups, cache/plugin maintenance |
+| Supporting | Portfolio Delivery Pipeline | `https://github.com/nikchester/nikchester.ru` | Delivery/CI proof for this portfolio | Static bilingual portfolio with Markdown content, generated CV PDFs, production config validation, link checks, Playwright, Lighthouse, GitHub Actions, GitHub Pages, and custom domain deployment |
+| Supporting | Freelance Email-to-Telegram Monitor | `https://github.com/nikchester/kwork-jobs-parser` | Lightweight automation proof | Google Apps Script workflow that parses labeled Kwork emails in Gmail, filters by budget and keywords, sends Telegram digests, marks processed messages, and handles Telegram rate-limit retries |
+| Supporting | Linux Troubleshooting Runbook | `https://github.com/nikchester/pi-linux-troubleshooting` | Reliability/troubleshooting/process proof | Safety-first Linux incident triage workflow for load, memory, disk, network, DNS, systemd, SSH, and post-incident notes |
+| Supporting | Linux Desktop / Dotfiles | `https://github.com/nikchester/my-i3-dotfiles` | Personal Linux/open-source signal | i3/X11 desktop environment managed with GNU Stow, shell scripts, tmux, rofi, polybar, and user systemd services |
 
 Do not include these repositories in the primary MVP Work section unless they are improved first:
-- `https://github.com/Chest3rf1eld/k8s-study-project` - currently a study project; may be mentioned as Kubernetes lab/study level, not production proof.
-- `https://github.com/Chest3rf1eld/backup_yandex_objective_storage` - useful but better folded into the HestiaCP/backups automation story.
-- `https://github.com/Chest3rf1eld/nikchester.ansible-role.hestiacp` - fork; only show later if improvements are documented clearly.
-- `https://github.com/Chest3rf1eld/Spotify-Likes-Downloader` - personal utility, not relevant enough for the main professional proof.
-- `https://github.com/Chest3rf1eld/nikchester-blog` - can be linked separately later, not as project proof.
+- `https://github.com/nikchester/k8s-study-project` - currently a study project; may be mentioned as Kubernetes lab/study level, not production proof.
+- `https://github.com/nikchester/backup_yandex_objective_storage` - useful but better folded into the HestiaCP/backups automation story.
+- `https://github.com/nikchester/nikchester.ansible-role.hestiacp` - fork; only show later if improvements are documented clearly.
+- `https://github.com/nikchester/Spotify-Likes-Downloader` - personal utility, not relevant enough for the main professional proof.
+- `https://github.com/nikchester/nikchester-blog` - can be linked separately later, not as project proof.
 
 ### 3.3 Project Repository Preparation Checklist
 
@@ -838,7 +838,7 @@ Static GitHub Pages hosting is sufficient for expected portfolio traffic.
 
 ### 10.1 Deployment
 
-Target repository: `Chest3rf1eld.github.io`.
+Target repository: `nikchester/nikchester.ru` (formerly `Chest3rf1eld.github.io`).
 
 Deployment model:
 - Use `gh` CLI for GitHub operations whenever possible.
@@ -1026,13 +1026,13 @@ Commands are target commands for implementation. They must be created during pro
 - `my-cv/hh-6-sre-инженер.md`
 - `my-cv/linkedin-system-administrator.md`
 - `my-cv/market-analysis-devops-sre-rf.md`
-- GitHub profile: `https://github.com/Chest3rf1eld`
-- Target Pages repository: `Chest3rf1eld.github.io`
+- GitHub profile: `https://github.com/nikchester`
+- Target Pages repository: `nikchester/nikchester.ru` (formerly `Chest3rf1eld.github.io`)
 - Custom domain: `nikchester.ru`
-- Monitoring repository: `https://github.com/Chest3rf1eld/grafana-prometheus-loki-ansible`
-- HestiaCP scripts repository: `https://github.com/Chest3rf1eld/HestiaCP_scripts`
-- Linux troubleshooting repository: `https://github.com/Chest3rf1eld/pi-linux-troubleshooting`
-- i3 dotfiles repository: `https://github.com/Chest3rf1eld/my-i3-dotfiles`
+- Monitoring repository: `https://github.com/nikchester/grafana-prometheus-loki-ansible`
+- HestiaCP scripts repository: `https://github.com/nikchester/HestiaCP_scripts`
+- Linux troubleshooting repository: `https://github.com/nikchester/pi-linux-troubleshooting`
+- i3 dotfiles repository: `https://github.com/nikchester/my-i3-dotfiles`
 - Primary CTA: `https://t.me/Chesterf1ld`
 - LinkedIn: `https://www.linkedin.com/in/nikita-chaturov-8625a5281/`
 

@@ -1,7 +1,7 @@
 ---
 title: Linux Desktop / Dotfiles
 priority: supporting
-url: https://github.com/Chest3rf1eld/my-i3-dotfiles
+url: https://github.com/nikchester/my-i3-dotfiles
 stack: i3, X11, GNU Stow, Shell, tmux, rofi, polybar, systemd user services
 ---
 

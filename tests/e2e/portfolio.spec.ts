@@ -1,18 +1,19 @@
 import { expect, test } from '@playwright/test';
 
 const publicLinks = [
-  'https://t.me/Chesterf1ld',
-  'https://github.com/Chest3rf1eld',
+  'https://t.me/nikchester',
+  'https://github.com/nikchester',
   'https://www.linkedin.com/in/nikita-chaturov-8625a5281/',
   'https://kwork.ru/user/nikchester',
+  'https://www.fiverr.com/s/DmQQ6gA',
   'https://unsplash.com/@nikchester',
   'https://www.youtube.com/@Chesterf1eld',
-  'https://github.com/Chest3rf1eld/grafana-prometheus-loki-ansible',
-  'https://github.com/Chest3rf1eld/HestiaCP_scripts',
-  'https://github.com/Chest3rf1eld/pi-linux-troubleshooting',
-  'https://github.com/Chest3rf1eld/my-i3-dotfiles',
-  'https://github.com/Chest3rf1eld/Chest3rf1eld.github.io',
-  'https://github.com/Chest3rf1eld/kwork-jobs-parser',
+  'https://github.com/nikchester/grafana-prometheus-loki-ansible',
+  'https://github.com/nikchester/HestiaCP_scripts',
+  'https://github.com/nikchester/pi-linux-troubleshooting',
+  'https://github.com/nikchester/my-i3-dotfiles',
+  'https://github.com/nikchester/nikchester.ru',
+  'https://github.com/nikchester/kwork-jobs-parser',
   'https://www.reddit.com/r/RuProgrammers/s/O6DUeSJ1W3',
 ];
 
@@ -20,7 +21,7 @@ test('renders English portfolio by default and switches to Russian', async ({ pa
   await page.goto('/');
 
   await expect(page.getByRole('heading', { name: 'Nikita Chaturov' })).toBeVisible();
-  await expect(page.getByText('Infrastructure Engineer').first()).toBeVisible();
+  await expect(page.getByText('DevOps Engineer').first()).toBeVisible();
   await expect(page.locator('#proof strong').filter({ hasText: /^Recovery$/ })).toBeVisible();
   await expect(page.locator('#proof strong').filter({ hasText: /^Monitoring$/ })).toBeVisible();
   await expect(page.locator('#work .titlebar').getByText('~/cases', { exact: true })).toBeVisible();
@@ -33,7 +34,7 @@ test('renders English portfolio by default and switches to Russian', async ({ pa
   await expect(page.getByText('./healthcheck --contact')).toHaveCount(0);
   await expect(page.getByText(`[${'OK'}]`)).toHaveCount(0);
 
-  await expect(page.getByRole('img', { name: 'Nikita Chaturov, Infrastructure Engineer' })).toBeVisible();
+  await expect(page.getByRole('img', { name: 'Nikita Chaturov, DevOps Engineer' })).toBeVisible();
   await page.getByRole('button', { name: 'RU' }).click();
   await expect(page.getByRole('heading', { name: 'Никита Чатуров' })).toBeVisible();
   await expect(page.locator('#contact .titlebar').getByText('~/contact', { exact: true })).toBeVisible();
@@ -57,7 +58,8 @@ test('has required public links and CV downloads', async ({ page }) => {
   await expect(page.locator('a[href="/assets/cv/nikita-chaturov-cv.ru.pdf"]')).toBeVisible();
   await expect(page.locator('a[href^="mailto:nikchester01@gmail.com"]')).toBeVisible();
   await expect(page.locator('#freelance a[href="https://kwork.ru/user/nikchester"]')).toBeVisible();
-  await expect(page.locator('#freelance a[href="https://t.me/Chesterf1ld"]')).toBeVisible();
+  await expect(page.locator('#freelance a[href="https://www.fiverr.com/s/DmQQ6gA"]')).toBeVisible();
+  await expect(page.locator('#freelance a[href="https://t.me/nikchester"]')).toBeVisible();
   await expect(page.locator('a[href="/en/cases/web-cluster/"]')).toBeVisible();
   await expect(page.locator('a[href="/en/cases/proverka-cheka/"]')).toBeVisible();
 });
