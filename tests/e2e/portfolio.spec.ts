@@ -24,7 +24,7 @@ test('renders English portfolio by default and switches to Russian', async ({ pa
   await expect(page.locator('#proof strong').filter({ hasText: /^Recovery$/ })).toBeVisible();
   await expect(page.locator('#proof strong').filter({ hasText: /^Monitoring$/ })).toBeVisible();
   await expect(page.locator('#work .titlebar').getByText('~/cases', { exact: true })).toBeVisible();
-  await expect(page.getByText('Proverka-cheka.ru Abuse Mitigation')).toBeVisible();
+  await expect(page.getByText('Bot Protection for a Paid API')).toBeVisible();
   await expect(page.getByText('Download public CV.')).toBeVisible();
   await expect(page.locator('#freelance .titlebar').getByText('~/freelance', { exact: true })).toBeVisible();
   await expect(page.getByText('Linux production infrastructure')).toHaveCount(0);
@@ -60,7 +60,7 @@ test('has required public links and CV downloads', async ({ page }) => {
   await expect(page.locator('a[href="https://kwork.ru/user/nikchester"]')).toHaveCount(0);
   await expect(page.locator('#freelance a[href="https://t.me/nikchester"]')).toBeVisible();
   await expect(page.locator('a[href="/en/cases/web-cluster/"]')).toBeVisible();
-  await expect(page.locator('a[href="/en/cases/proverka-cheka/"]')).toBeVisible();
+  await expect(page.locator('a[href="/en/cases/bot-protection/"]')).toBeVisible();
 });
 
 test('shows Kwork instead of Fiverr in Russian', async ({ page }) => {
@@ -238,8 +238,8 @@ test('serves static case pages directly', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Web Cluster Operations' })).toBeVisible();
   await expect(page.getByText('request path')).toBeVisible();
 
-  await page.goto('/ru/cases/proverka-cheka/');
-  await expect(page.getByRole('heading', { name: 'Proverka-cheka.ru: защита от ботов и ночной сбой' })).toBeVisible();
+  await page.goto('/ru/cases/bot-protection/');
+  await expect(page.getByRole('heading', { name: 'Защита сервиса от ботов и ночной сбой хостинга' })).toBeVisible();
   await expect(page.getByText('Ночной сбой 2 ноября 2026')).toBeVisible();
   await expect(page.locator('a[href="/assets/cases/ru/04-night-outage.pdf"]')).toBeVisible();
 });

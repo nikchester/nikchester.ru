@@ -1,5 +1,5 @@
 ---
-title: "Proverka-cheka.ru: защита от ботов и ночной сбой"
+title: "Защита сервиса от ботов и ночной сбой хостинга"
 summary: Боты съедали платный лимит проверок чеков. Закрыл сервис от ботов, описал сервер кодом и подключил мониторинг, который поймал ночной сбой хостинга.
 relatedWorkSlug: anti-flood-mitigation
 stack: Docker, Ansible, nginx, fail2ban, nftables, captcha, очередь запросов, Prometheus, Grafana

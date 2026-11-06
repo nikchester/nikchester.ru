@@ -44,5 +44,5 @@ https://github.com/nikchester/nikchester.ru
 - DNS propagation confirmation for `nikchester.ru` (issue #2)
 - CV content review/approval (issue #3)
 - Sanitized web cluster case details (issue #4)
-- Sanitized proverka-cheka.ru case details (issue #5)
+- Sanitized receipt-checking service case details (issue #5)
 - Licenses for public proof repositories (issue #6)
