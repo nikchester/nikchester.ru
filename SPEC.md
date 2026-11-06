@@ -345,7 +345,7 @@ Goal: turn the two blocked production proof items into public, sanitized Work ca
 
 Scope for nearest implementation:
 - Implement both cases in the same release.
-- Add Work cards and static case pages for both `#4` web infrastructure case and `#5` receipt-checking service abuse mitigation case.
+- Add Work cards and static case pages for both `#4` web infrastructure case and `#5` the receipt-checking service abuse mitigation case.
 - Definition of done: Work cards, EN/RU case pages, case links, automated safety checks, e2e coverage, production build, link validation, and Lighthouse pass.
 
 Routing decisions:
@@ -368,7 +368,7 @@ Work section decisions:
 - After adding both cases, promote the strongest incident/security proof first.
 - Top Work priority should favor incident and production resilience signals.
 - The `#4` web-cluster card can include two CTAs: GitHub repository and case details.
-- The `#5` receipt-checking service card links only to the case page, not to code.
+- The `#5` the receipt-checking service card links only to the case page, not to code.
 
 `#4` Web infrastructure / web cluster public scope:
 - Primary proof angle: architecture resilience and automation depth.
@@ -376,8 +376,8 @@ Work section decisions:
 - Publicly safe results: faster and more predictable routine operations, reduced manual risk, recovery/redeploy workflows measured in hours instead of days, easier scaling of new sites/domains/backups through a standard process.
 - Do not publish private topology, exact provider setup, IPs, hostnames, customer names, private diagrams, credentials, allowlists, or operational logs.
 
-`#5` receipt-checking service public scope:
-- The domain receipt-checking service may be named publicly.
+`#5` the receipt-checking service public scope:
+- The service domain must not be named publicly. Use "receipt-checking service".
 - Primary proof angle: incident mitigation, defense-in-depth, and improved diagnostics clarity.
 - Publicly safe content: high-level architecture/components, incident symptoms, general mitigation layers, safe stack names, and result claims.
 - Publicly safe results: abuse stopped or was strongly reduced, external API limit usage was controlled, manual blocking decreased, diagnostics became clearer.
@@ -799,7 +799,7 @@ Before committing public case content, remove:
 - non-public incident details that could help attackers
 
 Additional case-page safety rules:
-- Case pages may name receipt-checking service, but must not expose exact defensive configuration.
+- Case pages must not name the service domain and must not expose exact defensive configuration.
 - Do not publish nftables expressions, firewall chain names, fail2ban jail internals, thresholds, regexes, hostile subnet labels, or operational logs.
 - Do not publish exact topology, provider mapping, private diagrams, customer data, private hostnames, IPs, or allowlists.
 - Case page build checks must include forbidden patterns, forbidden terms, and public allowlists.
@@ -999,7 +999,7 @@ Commands are target commands for implementation. They must be created during pro
 
 - [ ] User must add hero photo later, or approve placeholder for MVP.
 - [ ] User must provide sanitized details for web cluster case before it can become a strong project card.
-- [ ] User must provide sanitized details for receipt-checking service internals before expanding beyond short card.
+- [ ] User must provide sanitized details for the receipt-checking service internals before expanding beyond short card.
 - [ ] User must configure DNS records for `nikchester.ru` manually.
 - [ ] CV content must be finalized and generated in RU and EN before release.
 

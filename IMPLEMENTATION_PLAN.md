@@ -423,7 +423,7 @@ Needed from the user before or during implementation:
 - hero photo, if it should be used instead of placeholder
 - final approval of public CV content
 - DNS record changes for `nikchester.ru`
-- sanitized details for receipt-checking service, if expanding beyond short card
+- sanitized details for the receipt-checking service, if expanding beyond short card
 - sanitized details for web cluster case, if adding it later
 
 ## 14. Definition Of Done

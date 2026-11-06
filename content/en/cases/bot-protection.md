@@ -1,5 +1,5 @@
 ---
-title: "receipt-checking service: bot protection and a night outage"
+title: "Bot protection and a night hosting outage"
 summary: Bots ate the paid daily limit of receipt checks. I closed the service to bots, described the server as code and added monitoring that caught a night hosting outage.
 relatedWorkSlug: anti-flood-mitigation
 stack: Docker, Ansible, nginx, fail2ban, nftables, captcha, request queue, Prometheus, Grafana

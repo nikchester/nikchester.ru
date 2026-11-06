@@ -39,7 +39,7 @@ linkedin: https://www.linkedin.com/in/nikita-chaturov-8625a5281/
 
 - Администрирую GitLab и пайплайны сборки и развёртывания frontend- и Java-сервисов для dev- и prod-окружений.
 - Использую Docker и Docker Compose: сборка образов, изоляция сетей, запуск без root. Настроил доступы и защищённые переменные GitLab CI/CD.
-- Для receipt-checking service собрал инфраструктуру с нуля: Docker, Nginx, GitLab CI/CD, развёртывание через Ansible, мониторинг и логи.
+- Для сервиса проверки чеков собрал инфраструктуру с нуля: Docker, Nginx, GitLab CI/CD, развёртывание через Ansible, мониторинг и логи.
 
 #### Terraform и Proxmox VE
 
@@ -57,7 +57,7 @@ linkedin: https://www.linkedin.com/in/nikita-chaturov-8625a5281/
 
 - Развернул Prometheus, Grafana, Loki, Promtail и экспортеры node, nginx и blackbox. Настроил алерты на доступность, HTTP-коды, срок SSL-сертификатов, нагрузку и сбои бэкапов.
 - Переработал пороги, расписания и шаблоны алертов для снижения шума.
-- Разобрал инциденты с исчерпанием лимитов внешнего API в receipt-checking service. Добавил логирование request_id и IP, SmartCaptcha, rate limiting, очередь запросов и fail2ban.
+- Разобрал инциденты с исчерпанием лимитов внешнего API в сервисе проверки чеков. Добавил логирование request_id и IP, SmartCaptcha, rate limiting, очередь запросов и fail2ban.
 - После изменений инциденты с исчерпанием лимитов прекратились. Описал диагностику и действия при сбоях в runbook.
 
 #### Proxmox VE и миграции сервисов

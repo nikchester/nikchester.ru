@@ -39,7 +39,7 @@ Responsible for the company's entire infrastructure. I administer Proxmox VE dai
 
 - Administer GitLab and maintain build and deployment pipelines for frontend and Java services in development and production environments.
 - Use Docker and Docker Compose for image builds, network isolation, and non-root execution. Configured access controls and protected GitLab CI/CD variables.
-- Built infrastructure for receipt-checking service from scratch: Docker, Nginx, GitLab CI/CD, Ansible deployment, monitoring, and logs.
+- Built infrastructure for a receipt-checking service from scratch: Docker, Nginx, GitLab CI/CD, Ansible deployment, monitoring, and logs.
 
 #### Terraform and Proxmox VE
 
@@ -57,7 +57,7 @@ Responsible for the company's entire infrastructure. I administer Proxmox VE dai
 
 - Deployed Prometheus, Grafana, Loki, Promtail, and node, nginx, and blackbox exporters. Configured alerts for availability, HTTP status codes, certificate expiry, load, and backup failures.
 - Revised alert thresholds, schedules, and templates to reduce noise.
-- Investigated external API limit exhaustion incidents in receipt-checking service. Added request_id and IP logging, SmartCaptcha, rate limiting, a request queue, and fail2ban.
+- Investigated external API limit exhaustion incidents in a receipt-checking service. Added request_id and IP logging, SmartCaptcha, rate limiting, a request queue, and fail2ban.
 - The observed API limit exhaustion incidents stopped after these changes. Documented troubleshooting and incident handling in a runbook.
 
 #### Proxmox VE and Service Migrations
