@@ -1,45 +1,51 @@
 ---
-title: Proverka-cheka.ru Abuse Mitigation
-summary: Сдерживание злоупотребления трафиком, которое расходовало лимиты внешнего API.
+title: "Proverka-cheka.ru: защита от ботов и ночной сбой"
+summary: Боты съедали платный лимит проверок чеков. Закрыл сервис от ботов, описал сервер кодом и подключил мониторинг, который поймал ночной сбой хостинга.
 relatedWorkSlug: anti-flood-mitigation
-stack: nginx, fail2ban, nftables, captcha, request queue, diagnostics
+stack: Docker, Ansible, nginx, fail2ban, nftables, captcha, очередь запросов, Prometheus, Grafana
 ---
 
 ```text
-public traffic
-  -> request and IP correlation
-  -> captcha / queue / rate controls
-  -> nginx and fail2ban escalation
-  -> nftables containment layer
-  -> clearer incident signals
+пользователи и боты
+  -> captcha, лимиты, очередь
+  -> nginx и fail2ban
+  -> nftables
+  -> приложение в закрытой Docker-сети
+  -> дневной лимит только для людей
 ```
 
-## Контекст
+## Проблема
 
-Злоупотребление трафиком против proverka-cheka.ru расходовало лимиты внешнего API и требовало повторяющихся ручных действий.
+Сервис проверяет чеки через внешнего провайдера. У провайдера фиксированный дневной лимит проверок.
 
-## Ограничения
+С декабря 2025 боты начали съедать этот лимит. Настоящие пользователи получали ошибку до следующего дня. Сервер был настроен руками, тестовой копии не было.
 
-Публичный кейс может называть домен, но не раскрывает точные firewall rules, thresholds, regular expressions, jail internals, IP, attacker network labels, allowlists, logs, provider details или exact defensive configuration.
+## Что сделал
 
-## Архитектура
+- Начал записывать каждый запрос с источником. Так стало видно, как работают боты.
+- Добавил captcha, лимит запросов на пользователя и очередь. Они отсекают ботов до платной проверки.
+- Добавил автоматическую блокировку источников, которые шлют слишком много запросов.
+- Собрал сервис в Docker. Наружу открыт только сайт, база и внутренние части в закрытой сети.
+- Описал сервер ролями Ansible и в марте 2026 поднял тестовое окружение.
+- В феврале 2026 подключил сервис к Prometheus и Grafana: алерт, если сайт недоступен дольше 5 минут.
 
-Сдерживание построено несколькими слоями, а не одним block rule: application-facing controls, nginx-side rate limiting, fail2ban escalation, nftables containment и более понятная диагностика.
+## Результат
 
-## Действия
+- Атаки на платный лимит прекратились.
+- Люди снова проверяют чеки.
+- Сервер и тестовую копию можно собрать из кода.
 
-- Добавил request/IP correlation, чтобы понять паттерны злоупотребления.
-- Добавил captcha, request queueing и nginx rate limiting.
-- Добавил fail2ban escalation и nftables subnet containment.
-- Использовал dynamic containment behavior, чтобы уменьшить повторяющуюся ручную блокировку.
+## Ночной сбой 2 ноября 2026
 
-## Результаты
+- 02:41 МСК сайт перестал отвечать. До этого были короткие провалы по 1-2 минуты, алерт на них не сработал.
+- 02:46 критический алерт пришёл в чат команды.
+- 09:36-10:00 я проверил DNS через три публичных сервиса, оплату домена и сервер напрямую из пяти точек в четырёх странах.
+- Причина: полный сбой у хостинг-провайдера, лежали и его DNS, и серверы. Ошибки в нашей настройке не было.
+- Нашёл скрытый риск: домен, DNS и сервер у одного провайдера. Предложил план: вынести DNS, бэкапы и резервную площадку к другим провайдерам.
 
-- Abuse stopped или был сильно снижен.
-- Расход внешних API limits стал контролируемым.
-- Ручной блокировки стало меньше.
-- Diagnostics стали понятнее для будущих incidents.
+## Подробнее
 
-## Safety Note
+- [Кейс про защиту от ботов, PDF](/assets/cases/ru/01-bot-protection.pdf)
+- [Кейс про ночной сбой, PDF](/assets/cases/ru/04-night-outage.pdf)
 
-Кейс намеренно не раскрывает exact defensive configuration, rules, thresholds, expressions, private topology, logs и attacker network details.
+Точные правила, пороги, адреса и логи я не публикую.

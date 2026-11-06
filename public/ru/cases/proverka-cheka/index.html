@@ -3,16 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Сдерживание злоупотребления трафиком, которое расходовало лимиты внешнего API." />
+    <meta name="description" content="Боты съедали платный лимит проверок чеков. Закрыл сервис от ботов, описал сервер кодом и подключил мониторинг, который поймал ночной сбой хостинга." />
     <meta name="theme-color" content="#050807" />
     <link rel="canonical" href="https://nikchester.ru/ru/cases/proverka-cheka/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Proverka-cheka.ru Abuse Mitigation" />
-    <meta property="og:description" content="Сдерживание злоупотребления трафиком, которое расходовало лимиты внешнего API." />
+    <meta property="og:title" content="Proverka-cheka.ru: защита от ботов и ночной сбой" />
+    <meta property="og:description" content="Боты съедали платный лимит проверок чеков. Закрыл сервис от ботов, описал сервер кодом и подключил мониторинг, который поймал ночной сбой хостинга." />
     <meta property="og:url" content="https://nikchester.ru/ru/cases/proverka-cheka/" />
     <meta property="og:image" content="https://nikchester.ru/og-image.svg" />
-    <title>Proverka-cheka.ru Abuse Mitigation - Nikita Chaturov</title>
+    <title>Proverka-cheka.ru: защита от ботов и ночной сбой - Nikita Chaturov</title>
     <style>
       :root { color: #e6edf3; background: #0b0e13; font-family: Inter, Segoe UI, Arial, sans-serif; --terminal: #05070b; --panel: #131720; --line: #2a3342; --green: #4ade80; --amber: #e3b341; --muted: #9aa4b2; --mono: "JetBrains Mono", Consolas, monospace; }
       * { box-sizing: border-box; }
@@ -43,39 +43,49 @@
       <article>
         <header>
           <div class="prompt">RU case :: proverka-cheka</div>
-          <h1>Proverka-cheka.ru Abuse Mitigation</h1>
-          <p class="summary">Сдерживание злоупотребления трафиком, которое расходовало лимиты внешнего API.</p>
-          <div class="stack">stack: nginx, fail2ban, nftables, captcha, request queue, diagnostics</div>
+          <h1>Proverka-cheka.ru: защита от ботов и ночной сбой</h1>
+          <p class="summary">Боты съедали платный лимит проверок чеков. Закрыл сервис от ботов, описал сервер кодом и подключил мониторинг, который поймал ночной сбой хостинга.</p>
+          <div class="stack">stack: Docker, Ansible, nginx, fail2ban, nftables, captcha, очередь запросов, Prometheus, Grafana</div>
         </header>
-        <div class="body"><pre><code class="language-text">public traffic
-  -&gt; request and IP correlation
-  -&gt; captcha / queue / rate controls
-  -&gt; nginx and fail2ban escalation
-  -&gt; nftables containment layer
-  -&gt; clearer incident signals
+        <div class="body"><pre><code class="language-text">пользователи и боты
+  -&gt; captcha, лимиты, очередь
+  -&gt; nginx и fail2ban
+  -&gt; nftables
+  -&gt; приложение в закрытой Docker-сети
+  -&gt; дневной лимит только для людей
 </code></pre>
-<h2>Контекст</h2>
-<p>Злоупотребление трафиком против proverka-cheka.ru расходовало лимиты внешнего API и требовало повторяющихся ручных действий.</p>
-<h2>Ограничения</h2>
-<p>Публичный кейс может называть домен, но не раскрывает точные firewall rules, thresholds, regular expressions, jail internals, IP, attacker network labels, allowlists, logs, provider details или exact defensive configuration.</p>
-<h2>Архитектура</h2>
-<p>Сдерживание построено несколькими слоями, а не одним block rule: application-facing controls, nginx-side rate limiting, fail2ban escalation, nftables containment и более понятная диагностика.</p>
-<h2>Действия</h2>
+<h2>Проблема</h2>
+<p>Сервис проверяет чеки через внешнего провайдера. У провайдера фиксированный дневной лимит проверок.</p>
+<p>С декабря 2025 боты начали съедать этот лимит. Настоящие пользователи получали ошибку до следующего дня. Сервер был настроен руками, тестовой копии не было.</p>
+<h2>Что сделал</h2>
 <ul>
-<li>Добавил request/IP correlation, чтобы понять паттерны злоупотребления.</li>
-<li>Добавил captcha, request queueing и nginx rate limiting.</li>
-<li>Добавил fail2ban escalation и nftables subnet containment.</li>
-<li>Использовал dynamic containment behavior, чтобы уменьшить повторяющуюся ручную блокировку.</li>
+<li>Начал записывать каждый запрос с источником. Так стало видно, как работают боты.</li>
+<li>Добавил captcha, лимит запросов на пользователя и очередь. Они отсекают ботов до платной проверки.</li>
+<li>Добавил автоматическую блокировку источников, которые шлют слишком много запросов.</li>
+<li>Собрал сервис в Docker. Наружу открыт только сайт, база и внутренние части в закрытой сети.</li>
+<li>Описал сервер ролями Ansible и в марте 2026 поднял тестовое окружение.</li>
+<li>В феврале 2026 подключил сервис к Prometheus и Grafana: алерт, если сайт недоступен дольше 5 минут.</li>
 </ul>
-<h2>Результаты</h2>
+<h2>Результат</h2>
 <ul>
-<li>Abuse stopped или был сильно снижен.</li>
-<li>Расход внешних API limits стал контролируемым.</li>
-<li>Ручной блокировки стало меньше.</li>
-<li>Diagnostics стали понятнее для будущих incidents.</li>
+<li>Атаки на платный лимит прекратились.</li>
+<li>Люди снова проверяют чеки.</li>
+<li>Сервер и тестовую копию можно собрать из кода.</li>
 </ul>
-<h2>Safety Note</h2>
-<p>Кейс намеренно не раскрывает exact defensive configuration, rules, thresholds, expressions, private topology, logs и attacker network details.</p></div>
+<h2>Ночной сбой 2 ноября 2026</h2>
+<ul>
+<li>02:41 МСК сайт перестал отвечать. До этого были короткие провалы по 1-2 минуты, алерт на них не сработал.</li>
+<li>02:46 критический алерт пришёл в чат команды.</li>
+<li>09:36-10:00 я проверил DNS через три публичных сервиса, оплату домена и сервер напрямую из пяти точек в четырёх странах.</li>
+<li>Причина: полный сбой у хостинг-провайдера, лежали и его DNS, и серверы. Ошибки в нашей настройке не было.</li>
+<li>Нашёл скрытый риск: домен, DNS и сервер у одного провайдера. Предложил план: вынести DNS, бэкапы и резервную площадку к другим провайдерам.</li>
+</ul>
+<h2>Подробнее</h2>
+<ul>
+<li><a href="/assets/cases/ru/01-bot-protection.pdf">Кейс про защиту от ботов, PDF</a></li>
+<li><a href="/assets/cases/ru/04-night-outage.pdf">Кейс про ночной сбой, PDF</a></li>
+</ul>
+<p>Точные правила, пороги, адреса и логи я не публикую.</p></div>
       </article>
       <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';

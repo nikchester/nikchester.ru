@@ -3,16 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Incident mitigation for abusive traffic exhausting external API limits." />
+    <meta name="description" content="Bots ate the paid daily limit of receipt checks. I closed the service to bots, described the server as code and added monitoring that caught a night hosting outage." />
     <meta name="theme-color" content="#050807" />
     <link rel="canonical" href="https://nikchester.ru/en/cases/proverka-cheka/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Proverka-cheka.ru Abuse Mitigation" />
-    <meta property="og:description" content="Incident mitigation for abusive traffic exhausting external API limits." />
+    <meta property="og:title" content="Proverka-cheka.ru: bot protection and a night outage" />
+    <meta property="og:description" content="Bots ate the paid daily limit of receipt checks. I closed the service to bots, described the server as code and added monitoring that caught a night hosting outage." />
     <meta property="og:url" content="https://nikchester.ru/en/cases/proverka-cheka/" />
     <meta property="og:image" content="https://nikchester.ru/og-image.svg" />
-    <title>Proverka-cheka.ru Abuse Mitigation - Nikita Chaturov</title>
+    <title>Proverka-cheka.ru: bot protection and a night outage - Nikita Chaturov</title>
     <style>
       :root { color: #e6edf3; background: #0b0e13; font-family: Inter, Segoe UI, Arial, sans-serif; --terminal: #05070b; --panel: #131720; --line: #2a3342; --green: #4ade80; --amber: #e3b341; --muted: #9aa4b2; --mono: "JetBrains Mono", Consolas, monospace; }
       * { box-sizing: border-box; }
@@ -43,39 +43,49 @@
       <article>
         <header>
           <div class="prompt">EN case :: proverka-cheka</div>
-          <h1>Proverka-cheka.ru Abuse Mitigation</h1>
-          <p class="summary">Incident mitigation for abusive traffic exhausting external API limits.</p>
-          <div class="stack">stack: nginx, fail2ban, nftables, captcha, request queue, diagnostics</div>
+          <h1>Proverka-cheka.ru: bot protection and a night outage</h1>
+          <p class="summary">Bots ate the paid daily limit of receipt checks. I closed the service to bots, described the server as code and added monitoring that caught a night hosting outage.</p>
+          <div class="stack">stack: Docker, Ansible, nginx, fail2ban, nftables, captcha, request queue, Prometheus, Grafana</div>
         </header>
-        <div class="body"><pre><code class="language-text">public traffic
-  -&gt; request and IP correlation
-  -&gt; captcha / queue / rate controls
-  -&gt; nginx and fail2ban escalation
-  -&gt; nftables containment layer
-  -&gt; clearer incident signals
+        <div class="body"><pre><code class="language-text">users and bots
+  -&gt; captcha, limits, queue
+  -&gt; nginx and fail2ban
+  -&gt; nftables
+  -&gt; app in a closed Docker network
+  -&gt; daily limit used by real people only
 </code></pre>
-<h2>Context</h2>
-<p>Abusive traffic against proverka-cheka.ru was exhausting external API limits and creating repeated manual response work.</p>
-<h2>Constraints</h2>
-<p>The public case can name the domain, but it cannot publish exact firewall rules, thresholds, regular expressions, jail internals, IPs, attacker network labels, allowlists, logs, provider details, or exact defensive configuration.</p>
-<h2>Architecture Summary</h2>
-<p>The mitigation used multiple layers rather than a single block rule: application-facing controls, nginx-side rate limiting, fail2ban escalation, nftables containment, and clearer diagnostics.</p>
-<h2>Actions</h2>
+<h2>Problem</h2>
+<p>The service checks receipts through an external provider. The provider gives a fixed number of checks per day.</p>
+<p>From December 2025, bots used up this limit. Real users got errors until the next day. The server was set up by hand, and there was no test copy.</p>
+<h2>What I did</h2>
 <ul>
-<li>Added request/IP correlation to understand abusive patterns.</li>
-<li>Added captcha, request queueing, and nginx rate limiting.</li>
-<li>Added fail2ban escalation and nftables subnet containment.</li>
-<li>Used dynamic containment behavior to reduce repeated manual blocking.</li>
+<li>Recorded each request with its source. This showed how the bots worked.</li>
+<li>Added a captcha, a per-user request limit and a queue. They stop bots before the paid check.</li>
+<li>Added automatic blocks for sources that send too many requests.</li>
+<li>Packed the service in Docker. Only the website is open; the database and internal parts are in a closed network.</li>
+<li>Described the server with Ansible roles and in March 2026 built a test environment.</li>
+<li>In February 2026 connected the service to Prometheus and Grafana: an alert when the site is down for more than 5 minutes.</li>
 </ul>
-<h2>Results</h2>
+<h2>Result</h2>
 <ul>
-<li>Abuse stopped or was strongly reduced.</li>
-<li>External API limit usage became controlled.</li>
-<li>Manual blocking decreased.</li>
-<li>Diagnostics became clearer for future incidents.</li>
+<li>The bot attacks on the paid limit stopped.</li>
+<li>Real users can check receipts again.</li>
+<li>The server and a test copy can be built from code.</li>
 </ul>
-<h2>Safety Note</h2>
-<p>This case intentionally avoids exact defensive configuration, rules, thresholds, expressions, private topology, logs, and attacker network details.</p></div>
+<h2>Night outage, 2 November 2026</h2>
+<ul>
+<li>02:41 Moscow time the site stopped answering. Short drops of 1-2 minutes came first; they did not trigger an alert.</li>
+<li>02:46 a critical alert reached the team chat.</li>
+<li>09:36-10:00 I checked DNS from three public services, the domain payment, and the server directly from five points in four countries.</li>
+<li>Cause: a full outage at the hosting provider, both its DNS and its servers. Our setup had no error.</li>
+<li>I found a hidden risk: domain, DNS and server at one provider. My plan: move DNS, backups and a reserve server to other providers.</li>
+</ul>
+<h2>More</h2>
+<ul>
+<li><a href="/assets/cases/en/01-bot-protection.pdf">Bot protection case, PDF</a></li>
+<li><a href="/assets/cases/en/04-night-outage.pdf">Night outage case, PDF</a></li>
+</ul>
+<p>I do not publish exact rules, thresholds, addresses or logs.</p></div>
       </article>
       <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';

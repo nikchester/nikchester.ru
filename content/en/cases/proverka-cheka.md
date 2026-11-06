@@ -1,45 +1,51 @@
 ---
-title: Proverka-cheka.ru Abuse Mitigation
-summary: Incident mitigation for abusive traffic exhausting external API limits.
+title: "Proverka-cheka.ru: bot protection and a night outage"
+summary: Bots ate the paid daily limit of receipt checks. I closed the service to bots, described the server as code and added monitoring that caught a night hosting outage.
 relatedWorkSlug: anti-flood-mitigation
-stack: nginx, fail2ban, nftables, captcha, request queue, diagnostics
+stack: Docker, Ansible, nginx, fail2ban, nftables, captcha, request queue, Prometheus, Grafana
 ---
 
 ```text
-public traffic
-  -> request and IP correlation
-  -> captcha / queue / rate controls
-  -> nginx and fail2ban escalation
-  -> nftables containment layer
-  -> clearer incident signals
+users and bots
+  -> captcha, limits, queue
+  -> nginx and fail2ban
+  -> nftables
+  -> app in a closed Docker network
+  -> daily limit used by real people only
 ```
 
-## Context
+## Problem
 
-Abusive traffic against proverka-cheka.ru was exhausting external API limits and creating repeated manual response work.
+The service checks receipts through an external provider. The provider gives a fixed number of checks per day.
 
-## Constraints
+From December 2025, bots used up this limit. Real users got errors until the next day. The server was set up by hand, and there was no test copy.
 
-The public case can name the domain, but it cannot publish exact firewall rules, thresholds, regular expressions, jail internals, IPs, attacker network labels, allowlists, logs, provider details, or exact defensive configuration.
+## What I did
 
-## Architecture Summary
+- Recorded each request with its source. This showed how the bots worked.
+- Added a captcha, a per-user request limit and a queue. They stop bots before the paid check.
+- Added automatic blocks for sources that send too many requests.
+- Packed the service in Docker. Only the website is open; the database and internal parts are in a closed network.
+- Described the server with Ansible roles and in March 2026 built a test environment.
+- In February 2026 connected the service to Prometheus and Grafana: an alert when the site is down for more than 5 minutes.
 
-The mitigation used multiple layers rather than a single block rule: application-facing controls, nginx-side rate limiting, fail2ban escalation, nftables containment, and clearer diagnostics.
+## Result
 
-## Actions
+- The bot attacks on the paid limit stopped.
+- Real users can check receipts again.
+- The server and a test copy can be built from code.
 
-- Added request/IP correlation to understand abusive patterns.
-- Added captcha, request queueing, and nginx rate limiting.
-- Added fail2ban escalation and nftables subnet containment.
-- Used dynamic containment behavior to reduce repeated manual blocking.
+## Night outage, 2 November 2026
 
-## Results
+- 02:41 Moscow time the site stopped answering. Short drops of 1-2 minutes came first; they did not trigger an alert.
+- 02:46 a critical alert reached the team chat.
+- 09:36-10:00 I checked DNS from three public services, the domain payment, and the server directly from five points in four countries.
+- Cause: a full outage at the hosting provider, both its DNS and its servers. Our setup had no error.
+- I found a hidden risk: domain, DNS and server at one provider. My plan: move DNS, backups and a reserve server to other providers.
 
-- Abuse stopped or was strongly reduced.
-- External API limit usage became controlled.
-- Manual blocking decreased.
-- Diagnostics became clearer for future incidents.
+## More
 
-## Safety Note
+- [Bot protection case, PDF](/assets/cases/en/01-bot-protection.pdf)
+- [Night outage case, PDF](/assets/cases/en/04-night-outage.pdf)
 
-This case intentionally avoids exact defensive configuration, rules, thresholds, expressions, private topology, logs, and attacker network details.
+I do not publish exact rules, thresholds, addresses or logs.
