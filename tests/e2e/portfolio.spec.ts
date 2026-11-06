@@ -239,8 +239,9 @@ test('serves static case pages directly', async ({ page }) => {
   await expect(page.getByText('request path')).toBeVisible();
 
   await page.goto('/ru/cases/bot-protection/');
-  await expect(page.getByRole('heading', { name: 'receipt-checking service Abuse Mitigation' })).toBeVisible();
-  await expect(page.getByText('Сдерживание построено')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'receipt-checking service: защита от ботов и ночной сбой' })).toBeVisible();
+  await expect(page.getByText('Ночной сбой 2 ноября 2026')).toBeVisible();
+  await expect(page.locator('a[href="/assets/cases/ru/04-night-outage.pdf"]')).toBeVisible();
 });
 
 test('applies Russian typography transform without breaking links', async ({ page }) => {
