@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Сервер клиента с Битрикс24 пропал у Beget. Ночные бэкапы с проверкой восстановления, новый сервер в Yandex Cloud кодом и восстановление портала за 34 минуты." />
+    <meta name="theme-color" content="#050807" />
+    <link rel="canonical" href="https://nikchester.ru/ru/cases/portal-restore/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Хостинг потерял сервер с CRM, портал вернули из бэкапа" />
+    <meta property="og:description" content="Сервер клиента с Битрикс24 пропал у Beget. Ночные бэкапы с проверкой восстановления, новый сервер в Yandex Cloud кодом и восстановление портала за 34 минуты." />
+    <meta property="og:url" content="https://nikchester.ru/ru/cases/portal-restore/" />
+    <meta property="og:image" content="https://nikchester.ru/og-image.svg" />
+    <title>Хостинг потерял сервер с CRM, портал вернули из бэкапа - Nikita Chaturov</title>
+    <style>
+      :root { color: #e6edf3; background: #0b0e13; font-family: Inter, Segoe UI, Arial, sans-serif; --terminal: #05070b; --panel: #131720; --line: #2a3342; --green: #4ade80; --amber: #e3b341; --muted: #9aa4b2; --mono: "JetBrains Mono", Consolas, monospace; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-width: 320px; background: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px), #0b0e13; background-size: 32px 32px; }
+      main { width: min(920px, calc(100% - 28px)); margin: 0 auto; padding: 28px 0 40px; }
+      article { background: var(--panel); border: 1px solid var(--line); box-shadow: 3px 3px 0 #000; }
+      header { border-bottom: 1px solid var(--line); padding: clamp(18px, 4vw, 34px); }
+      .prompt, pre, code { font-family: var(--mono); }
+      .prompt { color: var(--green); font-size: .85rem; margin-bottom: 14px; }
+      h1 { font-size: clamp(2rem, 6vw, 4rem); line-height: .95; letter-spacing: -.06em; margin: 0 0 12px; }
+      .summary { color: var(--muted); font-size: 1.05rem; max-width: 70ch; }
+      .stack { color: var(--amber); font-family: var(--mono); font-size: .82rem; margin-top: 18px; overflow-wrap: anywhere; }
+      .body { padding: clamp(18px, 4vw, 34px); }
+      h2 { color: var(--green); font-family: var(--mono); font-size: 1rem; margin-top: 28px; }
+      p, li { line-height: 1.55; }
+      pre:not(.mermaid) { background: var(--terminal); border: 1px solid var(--line); color: var(--green); overflow-x: auto; padding: 16px; }
+      pre.mermaid { background: var(--terminal); border: 1px solid var(--line); overflow-x: auto; padding: 16px; }
+      pre.mermaid svg { display: block; margin: 0 auto; min-width: 640px; height: auto; }
+      @media (min-width: 700px) { pre.mermaid svg { min-width: 0; max-width: 100%; } }
+      a { color: #6ea8fe; font-weight: 700; }
+      .back { display: inline-flex; margin-bottom: 12px; text-decoration: none; }
+      .badge { color: var(--amber); font-family: var(--mono); font-size: .78rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="back" href="/#work">&lt; Назад к портфолио</a>
+      <article>
+        <header>
+          <div class="prompt">RU case :: portal-restore</div>
+          <h1>Хостинг потерял сервер с CRM, портал вернули из бэкапа</h1>
+          <p class="summary">Сервер клиента с Битрикс24 пропал у Beget. Ночные бэкапы с проверкой восстановления, новый сервер в Yandex Cloud кодом и восстановление портала за 34 минуты.</p>
+          <div class="stack">stack: restic, rsync, systemd, Percona Server, Terraform, Ansible, Yandex Cloud, Битрикс24, Proxmox</div>
+        </header>
+        <div class="body"><pre><code class="language-text">сервер клиента у Beget
+  -&gt; ночной бэкап базы и файлов (pull, 01:00)
+  -&gt; сервер бэкапов вне Beget, restic
+  -&gt; проверка восстановления раз в неделю
+  -&gt; новый сервер в Yandex Cloud (Terraform, Ansible)
+  -&gt; восстановленный портал
+</code></pre>
+<h2>Проблема</h2>
+<p>Клиент держал сервер с коробочным Битрикс24 у хостинг-провайдера Beget. На этом сервере работал весь портал: CRM, переписка с клиентами, задачи и бизнес-процессы.</p>
+<p>2 ноября 2026 у Beget был крупный сбой. 3 ноября ночной бэкап не смог подключиться к серверу клиента. Больше недели Beget не сообщает, что с данными на этом сервере. Скорее всего, их больше нет.</p>
+<h2>Что сделал</h2>
+<ul>
+<li>В сентябре 2026 построил систему бэкапов. Каждую ночь она сама забирает базу и файлы портала на отдельный сервер вне Beget. Клиентский сервер не может удалить свои бэкапы.</li>
+<li>Раз в неделю система сама проверяет бэкап: загружает базу во временный MySQL и считает таблицы. 8 ноября проверка подтвердила: бэкап от 2 ноября восстанавливается, в базе 1768 таблиц.</li>
+<li>9 ноября описал новый сервер кодом в Terraform и создал его в Yandex Cloud за 41 секунду. Квоты облака поднял заранее.</li>
+<li>Установку окружения Битрикс описал в Ansible. Нашёл и обошёл ошибку официального установщика на облачном образе.</li>
+<li>Во время копирования отказала сетевая карта офисного сервера бэкапов. По фото с консоли нашёл причину и закрепил исправление.</li>
+<li>Запустил восстановление отдельной службой. Обрыв VPN или SSH его не останавливает.</li>
+</ul>
+<h2>Результат</h2>
+<ul>
+<li>Бэкап спас данные: Beget больше недели не может их вернуть, а у клиента есть своя копия на 2 ноября.</li>
+<li>5,4 ГБ файлов и база портала перенесены на новый сервер. Восстановление заняло 34 минуты.</li>
+<li>Домен переключили на новый сервер в тот же день.</li>
+<li>Новый сервер, окружение и восстановление описаны кодом. Повторить переезд - несколько команд.</li>
+</ul>
+<h2>Подробнее</h2>
+<ul>
+<li><a href="/assets/cases/ru/05-portal-restore.pdf">Кейс с настоящими скриншотами, PDF</a></li>
+</ul>
+<p>Имя клиента, адреса серверов и закрытые данные я не публикую.</p></div>
+      </article>
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+          startOnLoad: true,
+          theme: 'base',
+          themeVariables: {
+            fontFamily: '"JetBrains Mono", Consolas, monospace',
+            fontSize: '14px',
+            background: '#05070b',
+            primaryColor: '#131720',
+            primaryTextColor: '#e6edf3',
+            primaryBorderColor: '#2a3342',
+            lineColor: '#4ade80',
+            secondaryColor: '#131720',
+            tertiaryColor: '#131720',
+            clusterBkg: '#0b0e13',
+            clusterBorder: '#2a3342',
+            edgeLabelBackground: '#05070b',
+          },
+        });
+      </script>
+    </main>
+  </body>
+</html>

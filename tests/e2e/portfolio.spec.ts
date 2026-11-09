@@ -226,7 +226,7 @@ test('collapses and expands cases by viewport', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('#work .project-card')).toHaveCount(4);
   await page.getByRole('button', { name: 'Show more cases' }).click();
-  await expect(page.locator('#work .project-card')).toHaveCount(8);
+  await expect(page.locator('#work .project-card')).toHaveCount(9);
 
   await page.setViewportSize({ width: 360, height: 900 });
   await page.goto('/');
@@ -242,6 +242,10 @@ test('serves static case pages directly', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Защита сервиса от ботов и ночной сбой хостинга' })).toBeVisible();
   await expect(page.getByText('Ночной сбой 2 ноября 2026')).toBeVisible();
   await expect(page.locator('a[href="/assets/cases/ru/04-night-outage.pdf"]')).toBeVisible();
+
+  await page.goto('/ru/cases/portal-restore/');
+  await expect(page.getByRole('heading', { name: 'Хостинг потерял сервер с CRM, портал вернули из бэкапа' })).toBeVisible();
+  await expect(page.locator('a[href="/assets/cases/ru/05-portal-restore.pdf"]')).toBeVisible();
 });
 
 test('applies Russian typography transform without breaking links', async ({ page }) => {
