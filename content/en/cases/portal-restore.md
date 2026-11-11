@@ -36,6 +36,30 @@ On 2 November 2026 Beget had a large outage. On 3 November the nightly backup co
 - The domain moved to the new server on the same day.
 - The new server, its setup and the restore are code. A repeat move is a few commands.
 
+## How it looks
+
+These are real screenshots from the work. The client name, addresses and IDs are covered in red.
+
+<figure>
+  <img src="/assets/cases/img/portal-restore/backups-verify.webp" width="1600" height="649" loading="lazy" alt="Backup server output: last snapshots, the connection failure on 3 November and the successful check on 8 November">
+  <figcaption>Backup server: last snapshots of 2 November, the failed connection to the client server on 3 November and the weekly check on 8 November - OK, 1768 tables. The log is in Russian.</figcaption>
+</figure>
+
+<figure>
+  <img src="/assets/cases/img/portal-restore/yandex-cloud-vm.webp" width="1430" height="355" loading="lazy" alt="Yandex Cloud console: the new server with the label managed-by terraform">
+  <figcaption>Yandex Cloud: the new server is created by Terraform, see the label managed-by: terraform.</figcaption>
+</figure>
+
+<figure>
+  <img src="/assets/cases/img/portal-restore/nic-hang-photo.webp" width="760" height="367" loading="lazy" alt="Console photo of the office server: Detected Hardware Unit Hang errors">
+  <figcaption>Console photo of the office backup server: the network card hangs under load (Detected Hardware Unit Hang).</figcaption>
+</figure>
+
+<figure>
+  <img src="/assets/cases/img/portal-restore/nic-fix.webp" width="1600" height="569" loading="lazy" alt="Terminal: hardware packet offload is off, the speed is 1000 Mb/s">
+  <figcaption>The fix is permanent: hardware packet offload is off, the speed is 1000 Mb/s again, no new failures.</figcaption>
+</figure>
+
 ## More
 
 - [Case with real screenshots, PDF](/assets/cases/en/05-portal-restore.pdf)

@@ -36,6 +36,30 @@ stack: restic, rsync, systemd, Percona Server, Terraform, Ansible, Yandex Cloud,
 - Домен переключили на новый сервер в тот же день.
 - Новый сервер, окружение и восстановление описаны кодом. Повторить переезд - несколько команд.
 
+## Как это выглядит
+
+Это настоящие скриншоты из работы. Имя клиента, адреса и идентификаторы закрыты красным.
+
+<figure>
+  <img src="/assets/cases/img/portal-restore/backups-verify.webp" width="1600" height="649" loading="lazy" alt="Вывод сервера бэкапов: последние снимки, ошибка подключения 3 ноября и успешная проверка 8 ноября">
+  <figcaption>Сервер бэкапов: последние снимки 2 ноября, ошибка подключения к серверу клиента 3 ноября и еженедельная проверка 8 ноября - OK, 1768 таблиц.</figcaption>
+</figure>
+
+<figure>
+  <img src="/assets/cases/img/portal-restore/yandex-cloud-vm.webp" width="1430" height="355" loading="lazy" alt="Консоль Yandex Cloud: новый сервер с меткой managed-by terraform">
+  <figcaption>Yandex Cloud: новый сервер создан Terraform, это видно по метке managed-by: terraform.</figcaption>
+</figure>
+
+<figure>
+  <img src="/assets/cases/img/portal-restore/nic-hang-photo.webp" width="760" height="367" loading="lazy" alt="Фото консоли офисного сервера: ошибки Detected Hardware Unit Hang">
+  <figcaption>Фото с консоли офисного сервера бэкапов: сетевая карта зависает под нагрузкой (Detected Hardware Unit Hang).</figcaption>
+</figure>
+
+<figure>
+  <img src="/assets/cases/img/portal-restore/nic-fix.webp" width="1600" height="569" loading="lazy" alt="Терминал: аппаратная разбивка пакетов выключена, скорость 1000 Мбит/с">
+  <figcaption>Исправление закреплено: аппаратная разбивка пакетов выключена, скорость снова 1000 Мбит/с, новых сбоев нет.</figcaption>
+</figure>
+
 ## Подробнее
 
 - [Кейс с настоящими скриншотами, PDF](/assets/cases/ru/05-portal-restore.pdf)
