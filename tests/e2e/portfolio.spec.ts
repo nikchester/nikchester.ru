@@ -246,6 +246,8 @@ test('serves static case pages directly', async ({ page }) => {
   await page.goto('/ru/cases/portal-restore/');
   await expect(page.getByRole('heading', { name: 'Хостинг потерял сервер с CRM, портал вернули из бэкапа' })).toBeVisible();
   await expect(page.locator('a[href="/assets/cases/ru/05-portal-restore.pdf"]')).toBeVisible();
+  await expect(page.locator('figure img')).toHaveCount(4);
+  await expect(page.locator('figure img[src="/assets/cases/img/portal-restore/backups-verify.webp"]')).toBeVisible();
 });
 
 test('applies Russian typography transform without breaking links', async ({ page }) => {

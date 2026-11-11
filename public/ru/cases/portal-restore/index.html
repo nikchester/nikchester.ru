@@ -35,6 +35,9 @@
       a { color: #6ea8fe; font-weight: 700; }
       .back { display: inline-flex; margin-bottom: 12px; text-decoration: none; }
       .badge { color: var(--amber); font-family: var(--mono); font-size: .78rem; }
+      figure { margin: 18px 0 22px; }
+      figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); background: var(--terminal); }
+      figcaption { color: var(--muted); font-size: .88rem; line-height: 1.45; margin-top: 8px; }
     </style>
   </head>
   <body>
@@ -73,7 +76,21 @@
 <li>Домен переключили на новый сервер в тот же день.</li>
 <li>Новый сервер, окружение и восстановление описаны кодом. Повторить переезд - несколько команд.</li>
 </ul>
-<h2>Подробнее</h2>
+<h2>Как это выглядит</h2>
+<p>Это настоящие скриншоты из работы. Имя клиента, адреса и идентификаторы закрыты красным.</p>
+<figure>
+  <img src="/assets/cases/img/portal-restore/backups-verify.webp" width="1600" height="649" loading="lazy" alt="Вывод сервера бэкапов: последние снимки, ошибка подключения 3 ноября и успешная проверка 8 ноября">
+  <figcaption>Сервер бэкапов: последние снимки 2 ноября, ошибка подключения к серверу клиента 3 ноября и еженедельная проверка 8 ноября - OK, 1768 таблиц.</figcaption>
+</figure><figure>
+  <img src="/assets/cases/img/portal-restore/yandex-cloud-vm.webp" width="1430" height="355" loading="lazy" alt="Консоль Yandex Cloud: новый сервер с меткой managed-by terraform">
+  <figcaption>Yandex Cloud: новый сервер создан Terraform, это видно по метке managed-by: terraform.</figcaption>
+</figure><figure>
+  <img src="/assets/cases/img/portal-restore/nic-hang-photo.webp" width="760" height="367" loading="lazy" alt="Фото консоли офисного сервера: ошибки Detected Hardware Unit Hang">
+  <figcaption>Фото с консоли офисного сервера бэкапов: сетевая карта зависает под нагрузкой (Detected Hardware Unit Hang).</figcaption>
+</figure><figure>
+  <img src="/assets/cases/img/portal-restore/nic-fix.webp" width="1600" height="569" loading="lazy" alt="Терминал: аппаратная разбивка пакетов выключена, скорость 1000 Мбит/с">
+  <figcaption>Исправление закреплено: аппаратная разбивка пакетов выключена, скорость снова 1000 Мбит/с, новых сбоев нет.</figcaption>
+</figure><h2>Подробнее</h2>
 <ul>
 <li><a href="/assets/cases/ru/05-portal-restore.pdf">Кейс с настоящими скриншотами, PDF</a></li>
 </ul>
