@@ -20,8 +20,7 @@ const labels = {
     github: 'GitHub',
     linkedin: 'LinkedIn',
     freelance: 'Freelance',
-    marketplace: 'Fiverr',
-    contactViaMarketplace: 'Contact via Fiverr',
+    contactVia: 'Contact via',
     contactViaTelegram: 'Contact via Telegram',
     caseDetails: 'Case details',
     personal: 'Personal',
@@ -61,8 +60,7 @@ const labels = {
     github: 'GitHub',
     linkedin: 'LinkedIn',
     freelance: 'Фриланс',
-    marketplace: 'Kwork',
-    contactViaMarketplace: 'Написать через Kwork',
+    contactVia: 'Написать через',
     contactViaTelegram: 'Написать в Telegram',
     caseDetails: 'Подробнее',
     personal: 'Личное',
@@ -266,10 +264,11 @@ function WorkGrid({ content, lang }: { content: PageContent; lang: Language }) {
   );
 }
 
-// EN visitors get Fiverr, RU visitors get Kwork.
-function marketplaceUrl(lang: Language) {
-  return lang === 'en' ? siteConfig.fiverrUrl : siteConfig.kworkUrl;
-}
+const marketplaces = [
+  { name: 'Fiverr', url: siteConfig.fiverrUrl },
+  { name: 'Upwork', url: siteConfig.upworkUrl },
+  { name: 'Kwork', url: siteConfig.kworkUrl },
+] as const;
 
 function FreelancePanel({ content, lang }: { content: PageContent; lang: Language }) {
   const text = labels[lang];
@@ -278,7 +277,9 @@ function FreelancePanel({ content, lang }: { content: PageContent; lang: Languag
     <Window title={content.freelance.title} id="freelance" className="freelance-window terminal-window" status="intake: scoped ops task">
       <HtmlBlock html={content.freelance.html} />
       <div className="actions compact equal-actions">
-        <a className="button" href={marketplaceUrl(lang)}>{text.contactViaMarketplace}</a>
+        {marketplaces.map((marketplace) => (
+          <a className="button" href={marketplace.url} key={marketplace.name}>{`${text.contactVia} ${marketplace.name}`}</a>
+        ))}
         <a className="button" href={siteConfig.telegramUrl}>{text.contactViaTelegram}</a>
       </div>
     </Window>
@@ -310,7 +311,9 @@ function ContactPanel({ content, lang }: { content: PageContent; lang: Language 
         <a className="button" href={`mailto:${siteConfig.email}`}>{text.email}</a>
         <a className="button" href={siteConfig.githubUrl}>{text.github}</a>
         <a className="button" href={siteConfig.linkedinUrl}>{text.linkedin}</a>
-        <a className="button" href={marketplaceUrl(lang)}>{text.marketplace}</a>
+        {marketplaces.map((marketplace) => (
+          <a className="button" href={marketplace.url} key={marketplace.name}>{marketplace.name}</a>
+        ))}
       </div>
     </>
   );

@@ -5,6 +5,8 @@ const publicLinks = [
   'https://github.com/nikchester',
   'https://www.linkedin.com/in/nikita-chaturov-8625a5281/',
   'https://www.fiverr.com/s/DmQQ6gA',
+  'https://www.upwork.com/freelancers/~01fcd491cfcecf1f48',
+  'https://kwork.ru/user/nikchester',
   'https://unsplash.com/@nikchester',
   'https://www.youtube.com/@Chesterf1eld',
   'https://github.com/nikchester/grafana-prometheus-loki-ansible',
@@ -56,21 +58,28 @@ test('has required public links and CV downloads', async ({ page }) => {
   await expect(page.locator('a[href="/assets/cv/nikita-chaturov-cv.en.pdf"]')).toBeVisible();
   await expect(page.locator('a[href="/assets/cv/nikita-chaturov-cv.ru.pdf"]')).toBeVisible();
   await expect(page.locator('a[href^="mailto:nikchester01@gmail.com"]')).toBeVisible();
-  await expect(page.locator('#freelance a[href="https://www.fiverr.com/s/DmQQ6gA"]')).toBeVisible();
-  await expect(page.locator('a[href="https://kwork.ru/user/nikchester"]')).toHaveCount(0);
   await expect(page.locator('#freelance a[href="https://t.me/nikchester"]')).toBeVisible();
   await expect(page.locator('a[href="/en/cases/web-cluster/"]')).toBeVisible();
   await expect(page.locator('a[href="/en/cases/bot-protection/"]')).toBeVisible();
 });
 
-test('shows Kwork instead of Fiverr in Russian', async ({ page }) => {
-  await page.goto('/');
-  await page.getByRole('button', { name: 'RU' }).click();
+const marketplaceLinks = [
+  'https://www.fiverr.com/s/DmQQ6gA',
+  'https://www.upwork.com/freelancers/~01fcd491cfcecf1f48',
+  'https://kwork.ru/user/nikchester',
+];
 
-  await expect(page.locator('#freelance a[href="https://kwork.ru/user/nikchester"]')).toBeVisible();
-  await expect(page.locator('#contact a[href="https://kwork.ru/user/nikchester"]')).toBeVisible();
-  await expect(page.locator('a[href="https://www.fiverr.com/s/DmQQ6gA"]')).toHaveCount(0);
-});
+for (const lang of ['EN', 'RU']) {
+  test(`shows Fiverr, Upwork and Kwork in ${lang}`, async ({ page }) => {
+    await page.goto('/');
+    if (lang === 'RU') await page.getByRole('button', { name: 'RU' }).click();
+
+    for (const href of marketplaceLinks) {
+      await expect(page.locator(`#freelance a[href="${href}"]`)).toBeVisible();
+      await expect(page.locator(`#contact a[href="${href}"]`)).toBeVisible();
+    }
+  });
+}
 
 test('does not render duplicated repo field or contact prompt badge', async ({ page }) => {
   await page.goto('/');
