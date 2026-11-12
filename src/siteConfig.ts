@@ -8,6 +8,7 @@ export const siteConfig = {
   linkedinUrl: 'https://www.linkedin.com/in/nikita-chaturov-8625a5281/',
   kworkUrl: 'https://kwork.ru/user/nikchester',
   fiverrUrl: 'https://www.fiverr.com/s/DmQQ6gA',
+  upworkUrl: 'https://www.upwork.com/freelancers/~01fcd491cfcecf1f48',
   unsplashUrl: 'https://unsplash.com/@nikchester',
   youtubeUrl: 'https://www.youtube.com/@Chesterf1eld',
   email: 'nikchester01@gmail.com',
