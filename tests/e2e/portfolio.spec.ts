@@ -185,8 +185,10 @@ test('marks clicked nav item active and makes bottom section active without extr
 
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
   await expect(page.locator('.side-nav a[href="#personal"]')).toHaveClass(/active/);
-  const bottomGap = await page.evaluate(() => document.documentElement.scrollHeight - (window.scrollY + window.innerHeight));
-  expect(Math.abs(bottomGap)).toBeLessThanOrEqual(2);
+  // html has scroll-behavior: smooth, so wait for the scroll to settle before measuring.
+  await expect
+    .poll(() => page.evaluate(() => Math.abs(document.documentElement.scrollHeight - (window.scrollY + window.innerHeight))))
+    .toBeLessThanOrEqual(2);
 });
 
 test('uses directory-style section titlebars and Primary/Secondary tags', async ({ page }) => {
