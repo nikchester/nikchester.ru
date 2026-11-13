@@ -476,7 +476,8 @@ code { font-family: var(--mono); }
   .mobile-nav { display: block; margin-bottom: var(--mobile-section-gap); }
   .hero-grid, .window-row, .bottom-row, .work-grid { grid-template-columns: 1fr; }
   .window { margin-bottom: var(--mobile-section-gap); }
-  .window-row { gap: var(--mobile-section-gap); }
+  .window-row { gap: var(--mobile-section-gap); margin-bottom: var(--mobile-section-gap); }
+  .window-row > .window { margin-bottom: 0; }
   .window-body { padding: var(--mobile-card-padding); }
   .actions, .link-list, .personal-link-grid { gap: var(--mobile-inner-gap); }
   .project-titlebar { align-items: start; padding: var(--mobile-tag-gap) var(--mobile-card-padding); }
