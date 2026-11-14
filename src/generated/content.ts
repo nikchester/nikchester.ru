@@ -123,8 +123,8 @@ export const siteContent = {
         "url": "https://github.com/nikchester/nikchester.ru",
         "caseUrl": "",
         "redditUrl": "",
-        "stack": "Vite, React, TypeScript, Markdown, GitHub Actions, GitHub Pages, Playwright, Lighthouse",
-        "html": "<p><strong>Problem:</strong> a public portfolio should be reliable enough to share professionally, not just visually finished.</p>\n<p><strong>Action:</strong> built a static bilingual portfolio with Markdown content, generated CV PDFs, production config validation, link checks, Playwright smoke tests, Lighthouse gates, and GitHub Pages deployment.</p>\n<p><strong>Result:</strong> every production deploy is gated by automated checks and published on GitHub Pages with a custom domain at zero hosting cost.</p>"
+        "stack": "Vite, React, TypeScript, Markdown, GitHub Actions, GitHub Pages, Playwright, Lighthouse, Dependabot",
+        "html": "<p><strong>Problem:</strong> a public portfolio should be reliable enough to share professionally, not just visually finished.</p>\n<p><strong>Action:</strong> set up GitHub Actions for the static bilingual portfolio: every push and pull request to <code>main</code>/<code>dev</code> runs in a Playwright container that builds content from Markdown and the CV PDFs, then runs ESLint, type checks, production config and link validation, Playwright e2e tests in Chromium, Firefox and WebKit, and Lighthouse with a 90 threshold in all four categories. Deployment to GitHub Pages is a separate job that runs only from <code>main</code>; Dependabot checks dependencies weekly.</p>\n<p><strong>Result:</strong> only a build that passed every check reaches production; <code>dev</code> and pull requests get the same checks but are never published. Hosting is GitHub Pages with a custom domain at zero cost.</p>"
       }
     ],
     "cases": [
@@ -284,8 +284,8 @@ export const siteContent = {
         "url": "https://github.com/nikchester/nikchester.ru",
         "caseUrl": "",
         "redditUrl": "",
-        "stack": "Vite, React, TypeScript, Markdown, GitHub Actions, GitHub Pages, Playwright, Lighthouse",
-        "html": "<p><strong>Проблема:</strong> публичное портфолио должно быть не только визуально готовым, но и достаточно надежным, чтобы отправлять его работодателям и техническим контактам.</p>\n<p><strong>Действие:</strong> собрал статическое bilingual-портфолио с Markdown-контентом, генерацией PDF CV, проверкой production-конфига, link checks, Playwright smoke tests, Lighthouse gates и деплоем на GitHub Pages.</p>\n<p><strong>Результат:</strong> каждый production deploy проходит автоматические проверки и публикуется на GitHub Pages с custom domain без затрат на хостинг.</p>"
+        "stack": "Vite, React, TypeScript, Markdown, GitHub Actions, GitHub Pages, Playwright, Lighthouse, Dependabot",
+        "html": "<p><strong>Проблема:</strong> публичное портфолио должно быть не только визуально готовым, но и достаточно надежным, чтобы отправлять его работодателям и техническим контактам.</p>\n<p><strong>Действие:</strong> настроил GitHub Actions для статического bilingual-портфолио: на каждый push и PR в <code>main</code>/<code>dev</code> в контейнере Playwright собирается контент из Markdown и PDF CV, проходят ESLint, проверка типов, валидация production-конфига и ссылок, e2e-тесты Playwright в Chromium, Firefox и WebKit и Lighthouse с порогом 90 по всем четырём категориям. Деплой на GitHub Pages идёт отдельным job только из <code>main</code>; зависимости раз в неделю проверяет Dependabot.</p>\n<p><strong>Результат:</strong> в production попадает только версия, прошедшая все проверки; ветка <code>dev</code> и PR проверяются так же, но не публикуются. Хостинг — GitHub Pages с custom domain, без затрат.</p>"
       }
     ],
     "cases": [
