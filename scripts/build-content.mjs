@@ -32,6 +32,7 @@ const safetyForbiddenTerms = [
 ];
 const allowedCaseUrls = new Set([
   'https://github.com/nikchester/HestiaCP_scripts',
+  'https://github.com/nikchester/minecraft-server',
   'https://nikchester.ru',
 ]);
 
