@@ -30,8 +30,21 @@
       p, li { line-height: 1.55; }
       pre:not(.mermaid) { background: var(--terminal); border: 1px solid var(--line); color: var(--green); overflow-x: auto; padding: 16px; }
       pre.mermaid { background: var(--terminal); border: 1px solid var(--line); overflow-x: auto; padding: 16px; }
-      pre.mermaid svg { display: block; margin: 0 auto; min-width: 640px; height: auto; }
-      @media (min-width: 700px) { pre.mermaid svg { min-width: 0; max-width: 100%; } }
+      pre.mermaid svg, .mermaid-dialog-body svg { display: block; margin: 0 auto; max-width: none; height: auto; }
+      pre.mermaid:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+      .mermaid-tools, .mermaid-dialog-bar { align-items: center; background: linear-gradient(90deg, #1c2330, #11161d); border: 1px solid var(--line); display: flex; font-family: var(--mono); font-size: .82rem; gap: 8px; justify-content: space-between; min-height: 34px; padding: 4px 5px 4px 10px; }
+      .mermaid-tools { margin-top: 18px; }
+      .mermaid-tools + pre.mermaid { border-top: 0; margin-top: 0; }
+      .mermaid-tools span::before, .mermaid-dialog-bar span::before { color: var(--green); content: "$ "; }
+      .mermaid-tools button, .mermaid-dialog-bar button { background: #1a2230; border: 1px solid var(--line); box-shadow: inset 1px 1px 0 rgba(255,255,255,.06), 2px 2px 0 #000; color: #e6edf3; cursor: pointer; font: inherit; font-weight: 700; min-height: 26px; padding: 3px 10px; }
+      .mermaid-tools button:hover, .mermaid-dialog-bar button:hover { border-color: var(--green); color: var(--green); }
+      .mermaid-tools button:focus-visible, .mermaid-dialog-bar button:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+      .mermaid-dialog { background: var(--panel); border: 1px solid var(--line); box-shadow: 3px 3px 0 #000; color: #e6edf3; height: calc(100vh - 24px); height: calc(100dvh - 24px); max-height: none; max-width: none; padding: 0; width: calc(100vw - 24px); }
+      .mermaid-dialog[open] { display: flex; flex-direction: column; }
+      .mermaid-dialog::backdrop { background: rgba(0,0,0,.75); }
+      .mermaid-dialog-bar { border-width: 0 0 1px; }
+      .mermaid-dialog-body { background: var(--terminal); flex: 1; overflow: auto; padding: 16px; }
+      html:has(.mermaid-dialog[open]) { overflow: hidden; }
       a { color: #6ea8fe; font-weight: 700; }
       .back { display: inline-flex; margin-bottom: 12px; text-decoration: none; }
       .badge { color: var(--amber); font-family: var(--mono); font-size: .78rem; }
@@ -50,7 +63,7 @@
           <p class="summary">Production-like infrastructure for a private Minecraft server.</p>
           <div class="stack">stack: Debian, Paper, Ansible, GitHub Actions, restic, rclone, Google Drive, Telegram, Healthchecks.io, AuthMeReloaded, CoreProtect</div>
         </header>
-        <div class="body"><pre class="mermaid">flowchart LR
+        <div class="body"><div class="mermaid-tools"><span>Diagram</span><button type="button" class="mermaid-expand" aria-haspopup="dialog" hidden>Fullscreen</button></div><pre class="mermaid">flowchart LR
     subgraph CICD [CI/CD]
         GHA[GitHub Actions] --> ANS[Ansible]
     end
@@ -109,8 +122,12 @@
       </article>
       <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        const labels = {"diagram":"Diagram","close":"Close"};
+        const diagrams = [...document.querySelectorAll('pre.mermaid')];
+        // Natural size (14px text) instead of shrinking to the column; compact spacing keeps the width down.
         mermaid.initialize({
-          startOnLoad: true,
+          startOnLoad: false,
+          flowchart: { useMaxWidth: false, htmlLabels: true, nodeSpacing: 15, rankSpacing: 25, wrappingWidth: 120, padding: 8 },
           theme: 'base',
           themeVariables: {
             fontFamily: '"JetBrains Mono", Consolas, monospace',
@@ -127,6 +144,56 @@
             edgeLabelBackground: '#05070b',
           },
         });
+        if (diagrams.length > 0) {
+          await mermaid.run({ nodes: diagrams });
+
+          // Fullscreen view: the rendered svg moves into a modal dialog and back on close.
+          const dialog = document.createElement('dialog');
+          const bar = document.createElement('div');
+          const title = document.createElement('span');
+          const closeButton = document.createElement('button');
+          const body = document.createElement('div');
+          dialog.className = 'mermaid-dialog';
+          dialog.setAttribute('aria-label', labels.diagram);
+          bar.className = 'mermaid-dialog-bar';
+          title.textContent = labels.diagram;
+          closeButton.type = 'button';
+          closeButton.className = 'mermaid-close';
+          closeButton.textContent = labels.close;
+          body.className = 'mermaid-dialog-body';
+          body.tabIndex = 0;
+          bar.append(title, closeButton);
+          dialog.append(bar, body);
+          document.body.append(dialog);
+
+          let active = null;
+          closeButton.addEventListener('click', () => dialog.close());
+          dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+          dialog.addEventListener('close', () => {
+            if (!active) return;
+            active.pre.append(active.svg);
+            active.pre.style.minHeight = '';
+            active.button.focus();
+            active = null;
+          });
+
+          for (const pre of diagrams) {
+            const svg = pre.querySelector('svg');
+            const tools = pre.previousElementSibling;
+            const button = tools && tools.classList.contains('mermaid-tools') ? tools.querySelector('.mermaid-expand') : null;
+            if (!svg || !button) continue;
+            pre.tabIndex = 0;
+            pre.setAttribute('role', 'region');
+            pre.setAttribute('aria-label', labels.diagram);
+            button.addEventListener('click', () => {
+              pre.style.minHeight = pre.offsetHeight + 'px';
+              body.append(svg);
+              active = { pre, svg, button };
+              dialog.showModal();
+            });
+            button.hidden = false;
+          }
+        }
       </script>
     </main>
   </body>
