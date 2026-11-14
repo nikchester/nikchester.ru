@@ -161,6 +161,10 @@ function renderCasePage(lang, caseItem) {
   const title = escapeHtml(caseItem.title);
   const summary = escapeHtml(caseItem.summary);
   const stack = escapeHtml(caseItem.stack);
+  // Static toolbar keeps its space from the first paint (no layout shift); the script reveals the button.
+  const diagramTools = `<div class="mermaid-tools"><span>${escapeHtml(diagramLabels.diagram)}</span>`
+    + `<button type="button" class="mermaid-expand" aria-haspopup="dialog" hidden>${escapeHtml(diagramLabels.expand)}</button></div>`;
+  const bodyHtml = caseItem.html.replaceAll('<pre class="mermaid">', () => `${diagramTools}<pre class="mermaid">`);
 
   return `<!doctype html>
 <html lang="${lang}">
@@ -227,11 +231,11 @@ function renderCasePage(lang, caseItem) {
           <p class="summary">${summary}</p>
           <div class="stack">stack: ${stack}</div>
         </header>
-        <div class="body">${caseItem.html}</div>
+        <div class="body">${bodyHtml}</div>
       </article>
       <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-        const labels = ${JSON.stringify(diagramLabels)};
+        const labels = ${JSON.stringify({ diagram: diagramLabels.diagram, close: diagramLabels.close })};
         const diagrams = [...document.querySelectorAll('pre.mermaid')];
         // Natural size (14px text) instead of shrinking to the column; compact spacing keeps the width down.
         mermaid.initialize({
@@ -288,27 +292,19 @@ function renderCasePage(lang, caseItem) {
 
           for (const pre of diagrams) {
             const svg = pre.querySelector('svg');
-            if (!svg) continue;
+            const tools = pre.previousElementSibling;
+            const button = tools && tools.classList.contains('mermaid-tools') ? tools.querySelector('.mermaid-expand') : null;
+            if (!svg || !button) continue;
             pre.tabIndex = 0;
             pre.setAttribute('role', 'region');
             pre.setAttribute('aria-label', labels.diagram);
-            const tools = document.createElement('div');
-            const name = document.createElement('span');
-            const button = document.createElement('button');
-            tools.className = 'mermaid-tools';
-            name.textContent = labels.diagram;
-            button.type = 'button';
-            button.className = 'mermaid-expand';
-            button.textContent = labels.expand;
-            button.setAttribute('aria-haspopup', 'dialog');
             button.addEventListener('click', () => {
               pre.style.minHeight = pre.offsetHeight + 'px';
               body.append(svg);
               active = { pre, svg, button };
               dialog.showModal();
             });
-            tools.append(name, button);
-            pre.before(tools);
+            button.hidden = false;
           }
         }
       </script>

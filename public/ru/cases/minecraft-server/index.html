@@ -63,7 +63,7 @@
           <p class="summary">Production-like инфраструктура для приватного Minecraft-сервера.</p>
           <div class="stack">stack: Debian, Paper, Ansible, GitHub Actions, restic, rclone, Yandex Disk, Telegram, Healthchecks.io, AuthMeReloaded, CoreProtect</div>
         </header>
-        <div class="body"><pre class="mermaid">flowchart LR
+        <div class="body"><div class="mermaid-tools"><span>Схема</span><button type="button" class="mermaid-expand" aria-haspopup="dialog" hidden>На весь экран</button></div><pre class="mermaid">flowchart LR
     subgraph CICD [CI/CD]
         GHA[GitHub Actions] --> ANS[Ansible]
     end
@@ -118,7 +118,7 @@
       </article>
       <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-        const labels = {"diagram":"Схема","expand":"На весь экран","close":"Закрыть"};
+        const labels = {"diagram":"Схема","close":"Закрыть"};
         const diagrams = [...document.querySelectorAll('pre.mermaid')];
         // Natural size (14px text) instead of shrinking to the column; compact spacing keeps the width down.
         mermaid.initialize({
@@ -175,27 +175,19 @@
 
           for (const pre of diagrams) {
             const svg = pre.querySelector('svg');
-            if (!svg) continue;
+            const tools = pre.previousElementSibling;
+            const button = tools && tools.classList.contains('mermaid-tools') ? tools.querySelector('.mermaid-expand') : null;
+            if (!svg || !button) continue;
             pre.tabIndex = 0;
             pre.setAttribute('role', 'region');
             pre.setAttribute('aria-label', labels.diagram);
-            const tools = document.createElement('div');
-            const name = document.createElement('span');
-            const button = document.createElement('button');
-            tools.className = 'mermaid-tools';
-            name.textContent = labels.diagram;
-            button.type = 'button';
-            button.className = 'mermaid-expand';
-            button.textContent = labels.expand;
-            button.setAttribute('aria-haspopup', 'dialog');
             button.addEventListener('click', () => {
               pre.style.minHeight = pre.offsetHeight + 'px';
               body.append(svg);
               active = { pre, svg, button };
               dialog.showModal();
             });
-            tools.append(name, button);
-            pre.before(tools);
+            button.hidden = false;
           }
         }
       </script>
