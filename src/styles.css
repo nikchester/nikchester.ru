@@ -208,6 +208,15 @@ code { font-family: var(--mono); }
 
 .titlebar-controls button.active { background: var(--green); border-color: var(--green); color: #06110a; font-weight: 700; }
 
+.lang-hint {
+  align-self: center;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  margin-right: 6px;
+}
+
 .button {
   background: #1a2230;
   border: 1px solid var(--line);

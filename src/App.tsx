@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { detectLanguage, storeLanguage } from './detectLanguage';
 import { siteContent } from './generated/content';
 import { siteConfig } from './siteConfig';
 import type { Language, PageContent } from './types';
@@ -43,6 +44,7 @@ const labels = {
     internalCase: 'Internal case',
     priorityPrimary: 'Primary',
     prioritySecondary: 'Secondary',
+    langAuto: 'Language chosen automatically',
   },
   ru: {
     work: 'Кейсы',
@@ -83,6 +85,7 @@ const labels = {
     internalCase: 'Внутренний кейс',
     priorityPrimary: 'Основной',
     prioritySecondary: 'Вторичный',
+    langAuto: 'Язык выбран автоматически',
   },
 } as const;
 
@@ -112,17 +115,20 @@ function TitleBar({
   lang,
   setLang,
   titleId,
+  langHint,
 }: {
   title: string;
   lang: Language;
   setLang?: (lang: Language) => void;
   titleId?: string;
+  langHint?: string;
 }) {
   return (
     <div className="titlebar">
       <span id={titleId}>{protectEnglishHeading(title, lang)}</span>
       {setLang ? (
         <div className="titlebar-controls" aria-label="Language switch">
+          {langHint ? <span className="lang-hint" role="note">{langHint}</span> : null}
           <button className={lang === 'en' ? 'active' : ''} onClick={() => setLang('en')} type="button">EN</button>
           <button className={lang === 'ru' ? 'active' : ''} onClick={() => setLang('ru')} type="button">RU</button>
         </div>
@@ -158,7 +164,17 @@ function Window({
   );
 }
 
-function Hero({ content, lang, setLang }: { content: PageContent; lang: Language; setLang: (lang: Language) => void }) {
+function Hero({
+  content,
+  lang,
+  setLang,
+  langAuto,
+}: {
+  content: PageContent;
+  lang: Language;
+  setLang: (lang: Language) => void;
+  langAuto: boolean;
+}) {
   const text = labels[lang];
   const [showAnsi, setShowAnsi] = useState(false);
   const [tapToggleEnabled, setTapToggleEnabled] = useState(false);
@@ -173,7 +189,7 @@ function Hero({ content, lang, setLang }: { content: PageContent; lang: Language
 
   return (
     <section id="profile" className="hero window" aria-labelledby="hero-title">
-      <TitleBar title="nikchester@portfolio:~" lang={lang} setLang={setLang} />
+      <TitleBar title="nikchester@portfolio:~" lang={lang} setLang={setLang} langHint={langAuto ? text.langAuto : undefined} />
       <div className="hero-grid window-body">
         <div className="hero-terminal">
           <h1 id="hero-title">{protectEnglishHeading(content.hero.name, lang)}</h1>
@@ -468,9 +484,14 @@ function installAnalytics() {
 }
 
 export function App() {
-  const [lang, setLang] = useState<Language>('en');
+  const [{ lang, auto }, setLanguageChoice] = useState(detectLanguage);
   const content = siteContent[lang] as PageContent;
   const text = labels[lang];
+
+  const setLang = (next: Language) => {
+    storeLanguage(next);
+    setLanguageChoice({ lang: next, auto: false });
+  };
 
   useEffect(() => updateHead(lang), [lang]);
   useEffect(() => installAnalytics(), []);
@@ -479,7 +500,7 @@ export function App() {
     <main className="desktop-shell">
       <SideNav lang={lang} />
       <MobileNav lang={lang} />
-      <Hero content={content} lang={lang} setLang={setLang} />
+      <Hero content={content} lang={lang} setLang={setLang} langAuto={auto} />
       <div className="window-row">
         <Window title={content.proof.title} id="proof" className="proof-window terminal-window log-window" status={text.terminalReady}>
           <HtmlBlock html={content.proof.html} />
