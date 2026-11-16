@@ -6,6 +6,10 @@ export default defineConfig({
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: 'http://127.0.0.1:4173',
+    // The site picks RU by time zone and browser language: pin both so the
+    // default-English tests do not depend on the machine they run on.
+    locale: 'en-US',
+    timezoneId: 'UTC',
     trace: 'on-first-retry',
   },
   webServer: {
