@@ -2,7 +2,7 @@
 title: Minecraft Server Infrastructure
 summary: Production-like infrastructure for a private Minecraft server.
 relatedWorkSlug: minecraft-server
-stack: Debian, Paper, Ansible, GitHub Actions, restic, rclone, Yandex Disk, Telegram, Healthchecks.io, AuthMeReloaded, CoreProtect
+stack: Debian, Paper, Ansible, GitHub Actions, restic, rclone, Google Drive, Telegram, Healthchecks.io, AuthMeReloaded, CoreProtect
 ---
 
 ```mermaid
@@ -34,7 +34,7 @@ flowchart LR
         GHA --> GATE[Pre-deploy backup gate]
         GATE --> RESTIC[restic snapshot]
         RESTIC --> RCLONE[rclone]
-        RCLONE --> YADISK[Yandex Disk]
+        RCLONE --> GDRIVE[Google Drive]
     end
 ```
 
@@ -48,13 +48,13 @@ No Docker or Kubernetes, no public RCON, and no secrets, worlds, or backups in G
 
 ## Architecture Summary
 
-A single Debian VPS runs Paper as a native systemd service, with AuthMeReloaded for login and CoreProtect for rollback logging. Ansible provisions the host; GitHub Actions validates and deploys. Backups run through restic and rclone to Yandex Disk, with Telegram and Healthchecks.io covering monitoring and alerting.
+A single Debian VPS runs Paper as a native systemd service, with AuthMeReloaded for login and CoreProtect for rollback logging. Ansible provisions the host; GitHub Actions validates and deploys. Backups run through restic and rclone to Google Drive, with Telegram and Healthchecks.io covering monitoring and alerting.
 
 ## Actions
 
 - Built Ansible playbooks that provision the VPS and configure the Paper service end to end.
 - Built a GitHub Actions pipeline that validates, provisions, and deploys, gated on a successful pre-deploy backup.
-- Set up restic and rclone backups to Yandex Disk and exercised a full restore against a real snapshot.
+- Set up restic and rclone backups, now to Google Drive, and exercised a full restore against a real snapshot.
 - Added Telegram and Healthchecks.io alerting, including a direct alert on backup failure.
 - Added release management that prunes old releases while protecting the current and previous release.
 
@@ -64,6 +64,10 @@ A single Debian VPS runs Paper as a native systemd service, with AuthMeReloaded 
 - A real restore was tested and confirmed to preserve player accounts and the whitelist.
 - Failures reach a person directly instead of failing silently.
 - Deploys cannot proceed on a failed backup, removing a class of data-loss risk.
+
+## More
+
+- [Repository on GitHub: nikchester/minecraft-server](https://github.com/nikchester/minecraft-server)
 
 ## Safety Note
 

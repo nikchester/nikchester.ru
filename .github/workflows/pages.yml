@@ -19,6 +19,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Обычный запуск идёт 2–3 минуты (выбросы до ~10 минут); 20 минут — запас.
+    timeout-minutes: 20
     # Browsers and their system packages come with the image, so the job does
     # not need apt or the Ubuntu mirrors. Keep the tag equal to the
     # @playwright/test version in package-lock.json.
@@ -76,6 +78,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: build
     steps:
       - name: Deploy to GitHub Pages

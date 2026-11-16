@@ -1,0 +1,19 @@
+version: 2
+updates:
+  # npm: многие зависимости в package.json указаны как "latest", поэтому обновляется в основном package-lock.json.
+  # ВАЖНО: обновление @playwright/test должно сопровождаться сменой тега контейнера
+  # mcr.microsoft.com/playwright:v<версия>-noble в .github/workflows/pages.yml (версии должны совпадать).
+  # Dependabot эту связку не обновляет сам: такой PR требует правки pages.yml вручную.
+  - package-ecosystem: "npm"
+    directory: "/"
+    target-branch: "dev"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "dev"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
