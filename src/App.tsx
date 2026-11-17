@@ -93,10 +93,21 @@ function HtmlBlock({ html }: { html: string }) {
   return <div className="html-block" dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
+// marked escapes text as HTML entities; the result is rendered as a React text node,
+// so the entities must be decoded (&amp; last to avoid double decoding).
+function decodeEntities(value: string) {
+  return value
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>')
+    .replaceAll('&quot;', '"')
+    .replaceAll('&#39;', "'")
+    .replaceAll('&amp;', '&');
+}
+
 function extractParagraphs(html: string) {
   return [...html.matchAll(/<p><strong>([^<:]+):<\/strong>\s*([\s\S]*?)<\/p>/g)].map((match) => ({
     label: match[1].toLowerCase(),
-    text: match[2].replace(/<[^>]+>/g, '').trim(),
+    text: decodeEntities(match[2].replace(/<[^>]+>/g, '')).trim(),
   }));
 }
 

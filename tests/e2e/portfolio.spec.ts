@@ -10,7 +10,6 @@ const publicLinks = [
   'https://unsplash.com/@nikchester',
   'https://www.youtube.com/@Chesterf1eld',
   'https://github.com/nikchester/grafana-prometheus-loki-ansible',
-  'https://github.com/nikchester/HestiaCP_scripts',
   'https://github.com/nikchester/pi-linux-troubleshooting',
   'https://github.com/nikchester/my-i3-dotfiles',
   'https://github.com/nikchester/nikchester.ru',
@@ -59,8 +58,10 @@ test('has required public links and CV downloads', async ({ page }) => {
   await expect(page.locator('a[href="/assets/cv/nikita-chaturov-cv.ru.pdf"]')).toBeVisible();
   await expect(page.locator('a[href^="mailto:nikchester01@gmail.com"]')).toBeVisible();
   await expect(page.locator('#freelance a[href="https://t.me/nikchester"]')).toBeVisible();
-  await expect(page.locator('a[href="/en/cases/web-cluster/"]')).toBeVisible();
+  await expect(page.locator('a[href="/en/cases/portal-restore/"]')).toBeVisible();
   await expect(page.locator('a[href="/en/cases/bot-protection/"]')).toBeVisible();
+  await expect(page.locator('a[href="/en/cases/web-cluster/"]')).toHaveCount(0);
+  await expect(page.locator('a[href="https://github.com/nikchester/HestiaCP_scripts"]')).toHaveCount(0);
 });
 
 const marketplaceLinks = [
@@ -237,7 +238,7 @@ test('collapses and expands cases by viewport', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('#work .project-card')).toHaveCount(4);
   await page.getByRole('button', { name: 'Show more cases' }).click();
-  await expect(page.locator('#work .project-card')).toHaveCount(9);
+  await expect(page.locator('#work .project-card')).toHaveCount(8);
 
   await page.setViewportSize({ width: 360, height: 900 });
   await page.goto('/');
@@ -245,9 +246,8 @@ test('collapses and expands cases by viewport', async ({ page }) => {
 });
 
 test('serves static case pages directly', async ({ page }) => {
-  await page.goto('/en/cases/web-cluster/');
-  await expect(page.getByRole('heading', { name: 'Web Cluster Operations' })).toBeVisible();
-  await expect(page.getByText('request path')).toBeVisible();
+  await page.goto('/en/cases/minecraft-server/');
+  await expect(page.getByRole('heading', { name: 'Minecraft Server Infrastructure' })).toBeVisible();
 
   await page.goto('/ru/cases/bot-protection/');
   await expect(page.getByRole('heading', { name: 'Защита сервиса от ботов и ночной сбой хостинга' })).toBeVisible();

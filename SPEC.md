@@ -104,7 +104,6 @@ The Work section should use these public repositories as concrete proof. Keep co
 | Priority | Project | URL | Portfolio Role | Card Angle |
 |----------|---------|-----|----------------|------------|
 | Primary | Monitoring Stack as Code | `https://github.com/nikchester/grafana-prometheus-loki-ansible` | Main infrastructure/SRE proof | Ansible-based distributed monitoring stack with Grafana, Prometheus, Loki, blackbox checks, TLS, and firewall rules |
-| Primary | Bulk Web Infrastructure Automation | `https://github.com/nikchester/HestiaCP_scripts` | Main automation proof for 170+ site operations | Bash tooling for HestiaCP/WordPress operations: SSL, migrations, redirects, permissions, backups, cache/plugin maintenance |
 | Supporting | Portfolio Delivery Pipeline | `https://github.com/nikchester/nikchester.ru` | Delivery/CI proof for this portfolio | Static bilingual portfolio with Markdown content, generated CV PDFs, production config validation, link checks, Playwright, Lighthouse, GitHub Actions, GitHub Pages, and custom domain deployment |
 | Supporting | Freelance Email-to-Telegram Monitor | `https://github.com/nikchester/kwork-jobs-parser` | Lightweight automation proof | Google Apps Script workflow that parses labeled Kwork emails in Gmail, filters by budget and keywords, sends Telegram digests, marks processed messages, and handles Telegram rate-limit retries |
 | Supporting | Linux Troubleshooting Runbook | `https://github.com/nikchester/pi-linux-troubleshooting` | Reliability/troubleshooting/process proof | Safety-first Linux incident triage workflow for load, memory, disk, network, DNS, systemd, SSH, and post-incident notes |
@@ -112,6 +111,7 @@ The Work section should use these public repositories as concrete proof. Keep co
 
 Do not include these repositories in the primary MVP Work section unless they are improved first:
 - `https://github.com/nikchester/k8s-study-project` - currently a study project; may be mentioned as Kubernetes lab/study level, not production proof.
+- `https://github.com/nikchester/HestiaCP_scripts` - deprecated; the Bulk Web Infrastructure Automation card and the web-cluster case were removed on 2026-11-16.
 - `https://github.com/nikchester/backup_yandex_objective_storage` - useful but better folded into the HestiaCP/backups automation story.
 - `https://github.com/nikchester/nikchester.ansible-role.hestiacp` - fork; only show later if improvements are documented clearly.
 - `https://github.com/nikchester/Spotify-Likes-Downloader` - personal utility, not relevant enough for the main professional proof.
@@ -1041,3 +1041,4 @@ Commands are target commands for implementation. They must be created during pro
 | Date | Author | Change |
 |------|--------|--------|
 | 2026-09-15 | OpenCode | Initial MVP specification from interview |
+| 2026-11-16 | nikchester-bot | Removed the Bulk Web Infrastructure Automation card and the `web-cluster` case pages; `HestiaCP_scripts` is deprecated |
